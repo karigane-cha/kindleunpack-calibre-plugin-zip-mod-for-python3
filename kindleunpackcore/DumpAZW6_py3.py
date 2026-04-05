@@ -20,7 +20,7 @@ def get_image_type(imgname, imgdata=None):
         try:
             with open(imgname, 'rb') as f:
                 imgdata = f.read(32)
-        except:
+        except Exception:
             return None
     
     if not imgdata or len(imgdata) < 2:
@@ -175,10 +175,10 @@ def dump_contexth(codec, extheader):
     for _ in range(num_items):
         id, size = struct.unpack('>LL', extheader[pos:pos+8])
         content = extheader[pos + 8: pos + size]
-        if id in id_map_strings.keys():
+        if id in id_map_strings:
             name = id_map_strings[id]
             print('\n    Key: "%s"\n        Value: "%s"' % (name, content.decode(codec)))
-        elif id in id_map_values.keys():
+        elif id in id_map_values:
             name = id_map_values[id]
             if size == 9:
                 value, = struct.unpack('B',content)
@@ -191,7 +191,7 @@ def dump_contexth(codec, extheader):
                 print('\n    Key: "%s"\n        Value: 0x%04x' % (name, value))
             else:
                 print("\nError: Value for %s has unexpected size of %s" % (name, size))
-        elif id in id_map_hexstrings.keys():
+        elif id in id_map_hexstrings:
             name = id_map_hexstrings[id]
             print('\n    Key: "%s"\n        Value: 0x%s' % (name, binascii.hexlify(content).decode('ascii')))
         else:
@@ -280,7 +280,7 @@ class HdrParser:
             1252 : 'windows-1252',
             65001: 'utf-8',
             }
-        if self.hdr['codepage'] in self.codec_map.keys():
+        if self.hdr['codepage'] in self.codec_map:
             self.codec = self.codec_map[self.hdr['codepage']]
         self.title = self.title.decode(self.codec)
 
@@ -320,7 +320,8 @@ def DumpAZW6(infile, outdir):
 
     try:
         # make sure it is really an hd container file
-        contdata = open(infile, 'rb').read()
+        with open(infile, 'rb') as f:
+            contdata = f.read()
         palmheader = contdata[0:78]
         ident = palmheader[0x3C:0x3C+8]
         if ident != b'RBINCONT':
@@ -362,7 +363,7 @@ def DumpAZW6(infile, outdir):
             dt = data[0:4]
             dtext = data[0:12]
             desc = '' 
-            if dtext in dtmap2.keys():
+            if dtext in dtmap2:
                 desc = data
                 linkhrefs = []
                 hreflist = desc.split(b'|')
@@ -370,7 +371,7 @@ def DumpAZW6(infile, outdir):
                     if href != b"":
                         linkhrefs.append("        " +   href.decode('utf-8', errors='replace'))
                 desc = "\n" + "\n".join(linkhrefs)
-            elif dt in dtmap.keys():
+            elif dt in dtmap:
                 desc = dtmap[dt]
                 if dt == b"CONT":
                     desc="Cont Header"
