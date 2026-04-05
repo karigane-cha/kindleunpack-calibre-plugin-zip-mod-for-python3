@@ -85,15 +85,15 @@ class ProgressDialog(QProgressDialog):
                             if success:
                                 self.successes.append((book_id, dtitle))
                             elif error is None:
-                                self.failures.append((5, dtitle, '{0} already has a {1} format. Won\'t overwrite.'.format(dtitle, format['goal_format'])))
+                                self.failures.append((5, dtitle, _('{0} already has a {1} format. Won\'t overwrite.').format(dtitle, format['goal_format'])))
                             else:
-                                self.failures.append((4, dtitle, 'Unknown error processing {0}\'s {1} format'.format(dtitle, self.target_format)))
+                                self.failures.append((4, dtitle, _('Unknown error processing {0}\'s {1} format').format(dtitle, self.target_format)))
                         else:
-                            self.failures.append((5, dtitle, '{0} already has a {1} format. Won\'t overwrite.'.format(dtitle, format['goal_format'])))
+                            self.failures.append((5, dtitle, _('{0} already has a {1} format. Won\'t overwrite.').format(dtitle, format['goal_format'])))
                     else:
-                        self.failures.append((3, dtitle, '{0}\'s {1} format is not a {2} book.'.format(dtitle, self.target_format, self.kindle_type)))
+                        self.failures.append((3, dtitle, _('{0}\'s {1} format is not a {2} book.').format(dtitle, self.target_format, self.kindle_type)))
                 else:
-                    self.failures.append((2, dtitle, '{0} is encrypted.'.format(dtitle)))
+                    self.failures.append((2, dtitle, _('{0} is encrypted.').format(dtitle)))
         else:
             self.failures.append((1, dtitle, _('{0} has no {1} format to work with.').format(dtitle, self.target_format)))
 
