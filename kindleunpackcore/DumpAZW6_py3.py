@@ -4,29 +4,66 @@
 import sys
 
 import os, getopt, struct, binascii
-import imghdr
 
 def get_image_type(imgname, imgdata=None):
-    imgtype = imghdr.what(imgname, imgdata)
-    if imgtype == "jpeg":
+    """
+    Detect image type from magic bytes.
+    Compatible with Python 3.13+ (imghdr was removed).
+    Inherits original logic: detects JPEG, handles TIFF as WDP, 
+    and manually checks for JPEG magic bytes.
+    """
+    
+    # If imgdata not provided, try to read from file
+    if imgdata is None:
+        if imgname is None:
+            return None
+        try:
+            with open(imgname, 'rb') as f:
+                imgdata = f.read(32)
+        except:
+            return None
+    
+    if not imgdata or len(imgdata) < 2:
+        return None
+    
+    imgtype = None
+    
+    # Check JPEG (magic bytes: FF D8)
+    if imgdata[0:2] == b'\xFF\xD8':
         imgtype = "jpg"
-
-    # horrible hack since imghdr detects jxr/wdp as tiffs
-    if imgtype is not None and imgtype == "tiff":
-        imgtype = "wdp"
-
-    # imghdr only checks for JFIF or Exif JPEG files. Apparently, there are some
-    # with only the magic JPEG bytes out there...
-    # ImageMagick handles those, so, do it too.
-    if imgtype is None:
-        if imgdata[0:2] == b'\xFF\xD8':
-            # Get last non-null bytes
+        # Verify JPEG end marker if data is long enough
+        if len(imgdata) >= 4:
             last = len(imgdata)
-            while (imgdata[last-1:last] == b'\x00'):
-                last-=1
-            # Be extra safe, check the trailing bytes, too.
-            if imgdata[last-2:last] == b'\xFF\xD9':
+            while last > 0 and imgdata[last-1:last] == b'\x00':
+                last -= 1
+            if last >= 2 and imgdata[last-2:last] == b'\xFF\xD9':
                 imgtype = "jpg"
+    
+    # Check PNG (magic bytes: 89 50 4E 47 0D 0A 1A 0A)
+    elif len(imgdata) >= 8 and imgdata[0:8] == b'\x89PNG\r\n\x1a\n':
+        imgtype = "png"
+    
+    # Check GIF (magic bytes: 47 49 46)
+    elif len(imgdata) >= 3 and imgdata[0:3] == b'GIF':
+        if len(imgdata) >= 6 and imgdata[3:6] in (b'87a', b'89a'):
+            imgtype = "gif"
+    
+    # Check WebP (magic bytes: RIFF...WEBP)
+    elif len(imgdata) >= 12 and imgdata[0:4] == b'RIFF' and imgdata[8:12] == b'WEBP':
+        imgtype = "webp"
+    
+    # Check BMP (magic bytes: 42 4D)
+    elif imgdata[0:2] == b'BM':
+        imgtype = "bmp"
+    
+    # Check TIFF (big-endian: 4D 4D 00 2A or little-endian: 49 49 2A 00)
+    # horrible hack since imghdr detects jxr/wdp as tiffs
+    elif len(imgdata) >= 4:
+        if imgdata[0:2] == b'MM' and imgdata[2:4] == b'\x00\x2a':
+            imgtype = "wdp"
+        elif imgdata[0:2] == b'II' and imgdata[2:4] == b'\x2a\x00':
+            imgtype = "wdp"
+    
     return imgtype
 
 
