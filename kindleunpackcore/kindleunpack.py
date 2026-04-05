@@ -16,7 +16,7 @@ import glob
 from .compatibility_utils import PY2, binary_type, utf8_str, unicode_str
 from .compatibility_utils import unicode_argv, add_cp65001_codec
 from .compatibility_utils import hexlify
-from .DumpAZW6_v01 import DumpAZW6
+from .DumpAZW6_py3 import DumpAZW6
 
 add_cp65001_codec()
 
