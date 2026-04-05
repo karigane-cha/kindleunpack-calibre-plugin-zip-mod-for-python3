@@ -7,13 +7,23 @@ __docformat__ = 'restructuredtext en'
 
 
 import os
-from io import BytesIO as StringIO
+# from io import BytesIO as StringIO
+from io import StringIO as UnicodeIO
+try:
+    #  in python2, by StringIO we will mean a stream of byte strings
+    from StringIO import StringIO
+except ImportError:
+    #  in python3, by StringIO we mean a stream of unicode strings
+    StringIO = UnicodeIO
 from traceback import print_exc
 
 try:
-    from PyQt5.Qt import QPixmap, QIcon
+    from qt.core import QPixmap, QIcon
 except ImportError:
-    from PyQt4.Qt import QPixmap, QIcon
+    try:
+        from PyQt5.Qt import QPixmap, QIcon
+    except ImportError:
+        from PyQt4.Qt import QPixmap, QIcon
 
 from calibre.utils.config import config_dir
 from calibre.constants import iswindows

@@ -76,11 +76,11 @@ class ncxExtract:
                             fieldvalue = 'kindle:pos:fid:%s:off:%s' % (pos_fid, pos_off)
                         tmp[fieldname] = fieldvalue
                         if tag == 3:
-                            toctext = ctoc_text.get(fieldvalue, 'Unknown Text')
+                            toctext = ctoc_text.get(fieldvalue, b'Unknown Text')
                             toctext = toctext.decode(self.mh.codec)
                             tmp['text'] = toctext
                         if tag == 5:
-                            kindtext = ctoc_text.get(fieldvalue, 'Unknown Kind')
+                            kindtext = ctoc_text.get(fieldvalue, b'Unknown Kind')
                             kindtext = kindtext.decode(self.mh.codec)
                             tmp['kind'] = kindtext
                 indx_data.append(tmp)
@@ -167,7 +167,7 @@ class ncxExtract:
             return xml, max_lvl, num
 
         body, max_lvl, num = recursINDX()
-        header = ncx_header % (lang, ident, max_lvl + 1, title)
+        header = ncx_header % (lang, ident, max_lvl + 1, xmlescape(unescapeit(title)))
         ncx =  header + body + ncx_footer
         if not len(indx_data) == num:
             print("Warning: different number of entries in NCX", len(indx_data), num)
@@ -258,7 +258,7 @@ class ncxExtract:
             return xml, max_lvl, num
 
         body, max_lvl, num = recursINDX()
-        header = ncx_header % (lang, ident, max_lvl + 1, title)
+        header = ncx_header % (lang, ident, max_lvl + 1, xmlescape(unescapeit(title)))
         ncx =  header + body + ncx_footer
         if not len(indx_data) == num:
             print("Warning: different number of entries in NCX", len(indx_data), num)

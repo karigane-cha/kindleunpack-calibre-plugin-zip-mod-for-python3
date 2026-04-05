@@ -146,6 +146,9 @@ if PY2:
 #  0.80   converted to work with both python 2.7 and Python 3.3 and later
 #  0.81   various fixes
 #  0.82   Handle calibre-generated mobis that can have skeletons with no fragments
+#  0.83   Fix header item 114 being mistakenly treated as a string instead of a value
+#  0.84   Try to better follow the epub3 fixed layout spec when unpacking fixed layout mobis,
+#         and handle non-xml escaped titles in the ncx
 
 DUMP = False
 """ Set to True to dump all possible information. """
@@ -397,7 +400,7 @@ def processRESC(i, files, rscnames, sect, data, k8resc):
     return rscnames, k8resc
 
 
-def processImage(i, files, rscnames, sect, data, beg, rsc_ptr, cover_offset):
+def processImage(i, files, rscnames, sect, data, beg, rsc_ptr, cover_offset, thumb_offset):
     global DUMP
     # Extract an Image
     imgtype = get_image_type(None, data)
@@ -416,6 +419,8 @@ def processImage(i, files, rscnames, sect, data, beg, rsc_ptr, cover_offset):
     imgname = "image%05d.%s" % (i-beg+1, imgtype)
     if cover_offset is not None and i == beg + cover_offset:
         imgname = "cover%05d.%s" % (i-beg+1, imgtype)
+    if thumb_offset is not None and i == beg + thumb_offset:
+        imgname = "thumb%05d.%s" % (i-beg+1, imgtype)
     print("Extracting image: {0:s} from section {1:d}".format(imgname,i-beg+1))
     outimg = os.path.join(files.imgdir, imgname)
     with open(pathof(outimg), 'wb') as f:
@@ -537,9 +542,22 @@ def processMobi8(mh, metadata, sect, files, rscnames, pagemapproc, k8resc, obfus
         ncxmap['idtag'] = unicode_str(idtag)
         ncx_data[i] = ncxmap
 
+    # FYI:  KindleUnpack does *not* support mixed fixed/reflowable format epubs
+    # Books are assumed to be either fully fixed format or fully reflowable
+
+    # look to see if this kf8 was a fixed format and if so
+    # set a viewport to be set in every xhtml file
+    viewport = None
+    if 'original-resolution' in metadata:
+        if 'true' == metadata.get('fixed-layout', [''])[0].lower():
+            resolution = metadata['original-resolution'][0].lower()
+            width, height = resolution.split('x')
+            if width.isdigit() and int(width) > 0 and height.isdigit() and int(height) > 0: 
+                viewport = 'width=%s, height=%s' % (width, height) 
+
     # convert the rawML to a set of xhtml files
     print("Building an epub-like structure")
-    htmlproc = XHTMLK8Processor(rscnames, k8proc)
+    htmlproc = XHTMLK8Processor(rscnames, k8proc, viewport)
     usedmap = htmlproc.buildXHTML()
 
     # write out the xhtml svg, and css files
@@ -567,7 +585,7 @@ def processMobi8(mh, metadata, sect, files, rscnames, pagemapproc, k8resc, obfus
                 fileinfo.append(["coverpage", 'Text', filename])
                 guidetext += cover.guide_toxml()
                 cover.writeXHTML()
-
+                
     n =  k8proc.getNumberOfParts()
     for i in range(n):
         part = k8proc.getPart(i)
@@ -787,6 +805,12 @@ def process_all_mobi_headers(files, apnxfile, sect, mhlst, K8Boundary, k8only=Fa
             # processing first part of a combination file
             end = K8Boundary
 
+        # Not sure the try/except is necessary, but just in case
+        try: 
+            thumb_offset = int(metadata.get('ThumbOffset', ['-1'])[0])
+        except:
+            thumb_offset = None
+
         cover_offset = None
         if CREATE_COVER_PAGE:
             cover_offset = int(metadata.get('CoverOffset', ['-1'])[0])
@@ -836,7 +860,7 @@ def process_all_mobi_headers(files, apnxfile, sect, mhlst, K8Boundary, k8only=Fa
                 rscnames.append(None)
             else:
                 # if reached here should be an image ow treat as unknown
-                rscnames, rsc_ptr  = processImage(i, files, rscnames, sect, data, beg, rsc_ptr, cover_offset)
+                rscnames, rsc_ptr  = processImage(i, files, rscnames, sect, data, beg, rsc_ptr, cover_offset, thumb_offset)
         # done unpacking resources
 
         # Print Replica
@@ -975,9 +999,9 @@ def main(argv=unicode_argv()):
     global WRITE_RAW_DATA
     global SPLIT_COMBO_MOBIS
 
-    print("KindleUnpack v0.82")
+    print("KindleUnpack v0.83")
     print("   Based on initial mobipocket version Copyright © 2009 Charles M. Hannum <root@ihack.net>")
-    print("   Extensive Extensions and Improvements Copyright © 2009-2014 ")
+    print("   Extensive Extensions and Improvements Copyright © 2009-2020 ")
     print("       by:  P. Durrant, K. Hendricks, S. Siebert, fandrieu, DiapDealer, nickredding, tkeo.")
     print("   This program is free software: you can redistribute it and/or modify")
     print("   it under the terms of the GNU General Public License as published by")
