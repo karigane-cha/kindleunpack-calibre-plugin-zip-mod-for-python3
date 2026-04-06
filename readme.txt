@@ -41,7 +41,7 @@ https://github.com/dougmassay/kindleunpack-calibre-plugin
 DumpAZW6_v01.py
 https://gist.github.com/fireattack/99b7d9f6b2896cfa33944555d9e2a158
 ついでに、
-http://rio2016.5ch.net/test/read.cgi/ebooks/1526467330/395
+https://rio2016.5ch.io/test/read.cgi/ebooks/1526467330/395
 の>>395さんの修正も取り込んでいます。
 
 ■ライセンス
