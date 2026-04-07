@@ -20,10 +20,8 @@ import re
 
 import zipfile
 import binascii
+import shutil
 from .mobi_utils import mangle_fonts
-
-import distutils
-from distutils import dir_util
 
 class unpackException(Exception):
     pass
@@ -189,7 +187,7 @@ xmlns:enc="http://www.w3.org/2001/04/xmlenc#" xmlns:deenc="http://ns.adobe.com/d
     def replaceHDimages(self, src_dir, dest_dir, cover_offset):
         # replace res HD images
         if unipath.exists(src_dir):
-            distutils.dir_util.copy_tree(src_dir, dest_dir)
+            shutil.copytree(src_dir, dest_dir, dirs_exist_ok=True)
 
             # rename HD cover image
             if cover_offset is not None:
