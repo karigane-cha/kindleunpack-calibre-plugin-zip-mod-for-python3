@@ -31,7 +31,7 @@ class ExtractMobiAction(InterfaceActionBase):
     supported_platforms     = ['windows', 'osx', 'linux']
     author                  = PLUGIN_AUTHORS
     version                 = PLUGIN_VERSION_TUPLE
-    minimum_calibre_version = (0, 8, 60)
+    minimum_calibre_version = (5, 0, 0)
 
     #: This field defines the GUI plugin class that contains all the code
     #: that actually does something. Its format is module_path:class_name
