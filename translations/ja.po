@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-04-06 01:17+0900\n"
-"PO-Revision-Date: 2026-04-06 01:19+0900\n"
+"POT-Creation-Date: 2026-04-09 22:54+0900\n"
+"PO-Revision-Date: 2026-04-09 22:59+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -10,9 +10,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.9\n"
-"X-Poedit-Basepath: ..\n"
+"X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: __;gettext;ngettext:1,2\n"
-"X-Poedit-SearchPath-0: .\n"
 
 #: action.py:73
 msgid ""
@@ -254,7 +253,7 @@ msgstr ""
 
 #: config.py:114
 msgid "Select epub version output:"
-msgstr "epubの出力バージョンを選択:"
+msgstr "epub 形式の出力バージョンを選択:"
 
 #: config.py:117
 msgid "<p>Select the type of OPF file to create."
