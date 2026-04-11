@@ -282,7 +282,7 @@ def build_log(failures, successes, target, goal, name):
     '''
     # if ENCRYPTED:
     plural = '' if ENCRYPTED == 1 else 's'
-    msg = '<h4>{0} book{2} had encrypted {1} format{2}.</h4>\n'.format(ENCRYPTED, target, plural)
+    msg = _('<h4>{0} book{2} had encrypted {1} format{2}.</h4>\n').format(ENCRYPTED, target, plural)
     if ENCRYPTED:
         msg += '<ul>\n'
     for title in ENCRYPTED_titles:
@@ -294,7 +294,7 @@ def build_log(failures, successes, target, goal, name):
     # if NOSPECIAL:
     plural = '' if NOSPECIAL == 1 else 's'
     plural2 = '\'s' if NOSPECIAL == 1 else 's\''
-    msg = '<h4>{0} book{4} {1} format{3} contained no {2}{3}.</h4>\n'.format(NOSPECIAL, target, name, plural, plural2)
+    msg = _('<h4>{0} book{4} {1} format{3} contained no {2}{3}.</h4>\n').format(NOSPECIAL, target, name, plural, plural2)
     if NOSPECIAL:
         msg += '<ul>\n'
     for title in NOSPECIAL_titles:
@@ -305,7 +305,7 @@ def build_log(failures, successes, target, goal, name):
     html += msg
     # if EXISTS:
     plural = '' if EXISTS == 1 else 's'
-    msg = '<h4>{0} book{2} already had {1} format{2} -- will not overwrite.</h4>\n'.format(EXISTS, goal, plural)
+    msg = _('<h4>{0} book{2} already had {1} format{2} -- will not overwrite.</h4>\n').format(EXISTS, goal, plural)
     if EXISTS:
         msg += '<ul>\n'
     for title in EXISTS_titles:
@@ -316,7 +316,7 @@ def build_log(failures, successes, target, goal, name):
     html += msg
     # if UNKNOWN:
     plural = '' if UNKNOWN == 1 else 's'
-    msg = '<h4>{0} book{2} had unknown errors processing the {1} format{2}.</h4>\n'.format(UNKNOWN, target, plural)
+    msg = _('<h4>{0} book{2} had unknown errors processing the {1} format{2}.</h4>\n').format(UNKNOWN, target, plural)
     if UNKNOWN:
         msg += '<ul>\n'
     for title in UNKNOWN_titles:
