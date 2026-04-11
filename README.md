@@ -3,11 +3,11 @@
 English | [日本語](README_ja.md)  
 
 ## About  
-[KindleUnpack the Calibre Plugin + ZIP mod](https://github.com/junk2ool/kindleunpack-calibre-plugin-zip-mod) contained code that was not compatible with Python 3. Therefore, it did not work with newer versions of Calibre that use Python 3. To address this, the plugin has been modified to work with the latest Calibre while maintaining its previous functionality.  
+[KindleUnpack the calibre Plugin + ZIP mod](https://github.com/junk2ool/kindleunpack-calibre-plugin-zip-mod) contained code that was not compatible with Python 3. Therefore, it did not work with newer versions of calibre that use Python 3. To address this, the plugin has been modified to work with the latest calibre while maintaining its previous functionality.  
 
 
 ## Supported Versions  
-- Calibre 5.0.0 or later  
+- calibre 5.0.0 or later  
 
 
 ## Changes from the [Original Version](https://github.com/junk2ool/kindleunpack-calibre-plugin-zip-mod)  
@@ -23,8 +23,8 @@ English | [日本語](README_ja.md)
 
 
 ## How to Use  
-1. Install the latest plugin from the [release page](https://github.com/karigane-cha/KindleUnpack_Calibre_Plugin_zip_mod_for_Python3/releases).  
-2. Launch Calibre and install the plugin via `Preferences > Plugins > Load plugin from file`.  
+1. Install the latest plugin from the [release page](https://github.com/karigane-cha/kindleunpack-calibre-plugin-zip-mod-for-python3/releases).  
+2. Launch calibre and install the plugin via `Preferences > Plugins > Load plugin from file`.  
 3. After installation and restart, KindleUnpack icon will appear in the toolbar. You can configure various settings from there.  
 4. If you want to include the `.azw.res` file when generating zip or epub files, be sure to specify the Kindle Content directory.  
 
@@ -38,15 +38,15 @@ The corrections in [>>395](https://rio2016.5ch.io/test/read.cgi/ebooks/152646733
 
 
 ## License  
-### KindleUnpack the Calibre Plugin + ZIP mod for Python 3  
+### KindleUnpack the calibre Plugin + ZIP mod for Python 3  
 
     Licensed under the GPLv3.
 
-### KindleUnpack the Calibre Plugin + ZIP mod (https://github.com/junk2ool/kindleunpack-calibre-plugin-zip-mod)  
+### KindleUnpack the calibre Plugin + ZIP mod (https://github.com/junk2ool/kindleunpack-calibre-plugin-zip-mod)  
 
     Licensed under the GPLv3.
 
-### KindleUnpack the Calibre Plugin (https://github.com/dougmassay/kindleunpack-calibre-plugin)  
+### KindleUnpack the calibre Plugin (https://github.com/dougmassay/kindleunpack-calibre-plugin)  
 
     Licensed under the GPLv3.
 

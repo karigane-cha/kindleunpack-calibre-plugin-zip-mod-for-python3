@@ -3,11 +3,11 @@
 [English](Readme.md) | 日本語  
 
 ## 概要  
-[KindleUnpack the Calibre Plugin + ZIP mod](https://github.com/junk2ool/kindleunpack-calibre-plugin-zip-mod) は、 Python 3 には対応していないコードが含まれていました。そのため、Python 3 が用いられた新しいバージョンの Calibre では動作しませんでした。そこで、以前の機能を維持しつつ、最新の Calibre でも動作するようにプラグインを改修しました。  
+[KindleUnpack the calibre Plugin + ZIP mod](https://github.com/junk2ool/kindleunpack-calibre-plugin-zip-mod) には、 Python 3 では動作しないコードが含まれていました。そのため、Python 3 が用いられた新しいバージョンの calibre では動作しませんでした。そこで、以前の機能を維持しつつ、最新の calibre でも動作するようにプラグインを改修しました。  
 
 
 ## 対応バージョン  
-- Calibre 5.0.0 以上  
+- calibre 5.0.0 以上  
 
 
 ## [オリジナル版](https://github.com/junk2ool/kindleunpack-calibre-plugin-zip-mod)からの変更点  
@@ -23,8 +23,8 @@
 
 
 ## 使用方法  
-1. [リリースページ](https://github.com/karigane-cha/KindleUnpack_Calibre_Plugin_zip_mod_for_Python3/releases)から最新のプラグインをインストールします。
-2. Calibre を起動して、`環境設定 > プラグイン > ファイルからプラグインを読み込む`でプラグインをインストールします。  
+1. [リリースページ](https://github.com/karigane-cha/kindleunpack-calibre-plugin-zip-mod-for-python3/releases)から最新のプラグインをインストールします。
+2. calibre を起動して、`環境設定 > プラグイン > ファイルからプラグインを読み込む`でプラグインをインストールします。  
 2. インストールして再起動したら、ツールバーに KindleUnpack のアイコンが出現します。そこから各種設定が可能です。  
 3. zip や epub ファイルを生成する際に `.azw.res` ファイルを取り込みたい場合は、忘れずに Kindle Content ディレクトリを指定してください。  
 
@@ -38,15 +38,15 @@
 
 
 ## ライセンス  
-### KindleUnpack the Calibre Plugin + ZIP mod for Python 3  
+### KindleUnpack the calibre Plugin + ZIP mod for Python 3  
 
     Licensed under the GPLv3.
 
-### KindleUnpack the Calibre Plugin + ZIP mod (https://github.com/junk2ool/kindleunpack-calibre-plugin-zip-mod)  
+### KindleUnpack the calibre Plugin + ZIP mod (https://github.com/junk2ool/kindleunpack-calibre-plugin-zip-mod)  
 
     Licensed under the GPLv3.
 
-### KindleUnpack the Calibre Plugin (https://github.com/dougmassay/kindleunpack-calibre-plugin)  
+### KindleUnpack the calibre Plugin (https://github.com/dougmassay/kindleunpack-calibre-plugin)  
 
     Licensed under the GPLv3.
 
