@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-04-12 00:59+0900\n"
-"PO-Revision-Date: 2026-04-12 00:59+0900\n"
+"POT-Creation-Date: 2026-04-12 02:22+0900\n"
+"PO-Revision-Date: 2026-04-12 02:22+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -145,7 +145,7 @@ msgstr ""
 
 #: action.py:218
 msgid "Select Directory To Unpack Kindle/Mobi Book To"
-msgstr "Kindle/Mobi 書籍を解凍するディレクトリを選択してください"
+msgstr "Kindle/Mobi 書籍を解凍するディレクトリを選択"
 
 #: action.py:244 action.py:250
 msgid "KF8 books"
@@ -153,11 +153,11 @@ msgstr "KF8 形式の書籍"
 
 #: action.py:245
 msgid "Unpacking ePubs from"
-msgstr ""
+msgstr "ePub ファイルに変換中"
 
 #: action.py:251
 msgid "Unpacking ZIPs from"
-msgstr ""
+msgstr "ZIP ファイルに変換中"
 
 #: action.py:255
 msgid "Print Replica books"
@@ -165,7 +165,7 @@ msgstr "Print Replica 形式の書籍"
 
 #: action.py:256
 msgid "Extracting PDFs from"
-msgstr ""
+msgstr "PDF を抽出中"
 
 #: action.py:274
 #, python-brace-format
@@ -210,8 +210,8 @@ msgstr ""
 "<p>{0} 冊の PDF 形式がライブラリに追加されました。{1} 冊は追加されませんでし"
 "た。詳細はログを確認してください"
 
-#: action.py:291 action.py:374 config.py:205 mobi_stuff.py:162
-#: mobi_stuff.py:168 utilities.py:117
+#: action.py:291 action.py:374 config.py:205 mobi_stuff.py:161
+#: mobi_stuff.py:166 utilities.py:117
 msgid " v"
 msgstr ""
 
@@ -417,17 +417,22 @@ msgstr "キャンセル"
 #: dialogs.py:48 dialogs.py:69
 #, python-brace-format
 msgid "{0} {1} {2} ({3} issues)..."
-msgstr "{0} {1} {2} ({3} 巻)..."
+msgstr "{0} {1} {2} ({3} 冊)..."
 
 #: dialogs.py:71
 #, python-brace-format
 msgid "{0}: {1}"
 msgstr "{0}: {1}"
 
+#: dialogs.py:77
+#, python-brace-format
+msgid "{0}'s {1} format might not be a valid mobi/kindlebook."
+msgstr "{0} の {1} 形式は有効な mobi/kindlebook ではない可能性があります。"
+
 #: dialogs.py:88 dialogs.py:92
 #, python-brace-format
 msgid "{0} already has a {1} format. Won't overwrite."
-msgstr "{0} は既に {1} 形式になっています。上書きされません。"
+msgstr "{0} は既に {1} 形式になっています。上書きはされません。"
 
 #: dialogs.py:90
 #, python-brace-format
@@ -479,3 +484,79 @@ msgstr "解凍された epub ファイルの場所が見つかりません: {0}"
 #, python-brace-format
 msgid "Problem locating unpacked zip: {0}"
 msgstr "解凍された zip ファイルの場所が見つかりません: {0}"
+
+#: mobi_stuff.py:162
+msgid "Could not create MOBI portion of the split"
+msgstr "分割で MOBI 形式のファイルを作成できませんでした"
+
+#: mobi_stuff.py:167
+msgid "Could not create KF8 portion of the split"
+msgstr "分割で KF8 形式のファイルを作成できませんでした"
+
+#: utilities.py:244
+#, python-brace-format
+msgid "<h2>Successes - {0}</h2>\n"
+msgstr "<h2>成功 - {0}</h2>\n"
+
+#: utilities.py:246
+#, python-brace-format
+msgid "<h4>1 {0} format successfully extracted and added to book.</h4>\n"
+msgstr "<h4>1 冊の {0} 形式が正常に抽出され、書籍に追加されました。</h4>\n"
+
+#: utilities.py:248
+#, python-brace-format
+msgid "<h4>{0} {1} formats successfully extracted and added to books.</h4>\n"
+msgstr "<h4>{0} 冊の {1} 形式が正常に抽出され、書籍に追加されました。</h4>\n"
+
+#: utilities.py:256
+#, python-brace-format
+msgid "<h2>Issues - {0}</h2>\n"
+msgstr "<h2>問題 - {0}</h2>\n"
+
+#: utilities.py:287
+#, python-brace-format
+msgid "<h4>1 book had encrypted {0} format.</h4>\n"
+msgstr "<h4>1 冊の書籍が 暗号化された {0} 形式でした。</h4>\n"
+
+#: utilities.py:289
+#, python-brace-format
+msgid "<h4>{0} books had encrypted {1} formats.</h4>\n"
+msgstr "<h4>{0} 冊の書籍が暗号化された {1} 形式でした。</h4>\n"
+
+#: utilities.py:300
+#, python-brace-format
+msgid "<h4>1 book's {0} format contained no {1}.</h4>\n"
+msgstr "<h4>1 冊の書籍の {0} 形式には {1} が含まれていませんでした。</h4>\n"
+
+#: utilities.py:302
+#, python-brace-format
+msgid "<h4>{0} books' {1} formats contained no {2}.</h4>\n"
+msgstr "<h4>{0} 冊の {1} 形式には {2} が含まれていませんでした。</h4>\n"
+
+#: utilities.py:313
+#, python-brace-format
+msgid "<h4>1 book already had {0} format -- will not overwrite.</h4>\n"
+msgstr ""
+"<h4>1 冊の書籍が既に {0} 形式になっています。上書きはされません。</h4>\n"
+
+#: utilities.py:315
+#, python-brace-format
+msgid "<h4>{0} books already had {1} formats -- will not overwrite.</h4>\n"
+msgstr ""
+"<h4>{0} 冊の書籍が既に {1} 形式になっています。上書きはされません。</h4>\n"
+
+#: utilities.py:326
+#, python-brace-format
+msgid "<h4>1 book had unknown errors processing the {0} format.</h4>\n"
+msgstr "<h4>1 冊の書籍で {0} 形式の処理中に不明なエラーが発生しました。</h4>\n"
+
+#: utilities.py:328
+#, python-brace-format
+msgid "<h4>{0} books had unknown errors processing the {1} formats.</h4>\n"
+msgstr ""
+"<h4>{0} 冊の書籍で {1} 形式の処理中に不明なエラーが発生しました。</h4>\n"
+
+#: utilities.py:337
+#, python-brace-format
+msgid "<h3>Books that had no {0} format were ignored.</h3>\n"
+msgstr "<h3>{0} 形式ではない書籍は無視されました。</h3>\n"
