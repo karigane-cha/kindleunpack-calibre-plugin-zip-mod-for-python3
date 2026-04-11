@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-04-09 22:54+0900\n"
-"PO-Revision-Date: 2026-04-09 22:59+0900\n"
+"POT-Creation-Date: 2026-04-12 00:59+0900\n"
+"PO-Revision-Date: 2026-04-12 00:59+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -167,45 +167,111 @@ msgstr "Print Replica 形式の書籍"
 msgid "Extracting PDFs from"
 msgstr ""
 
-#: action.py:272
+#: action.py:274
 #, python-brace-format
-msgid ""
-"<p>{0} {2} format{3} added to library. {1} not added. See log for details"
+msgid "<p>1 EPUB format added to library. {0} not added. See log for details"
 msgstr ""
-"<p>{0} {2} 形式 {3} がライブラリに追加されました。{1} は追加されませんでし"
+"<p>1 冊の EPUB 形式がライブラリに追加されました。{0} 冊は追加されませんでし"
 "た。詳細はログを確認してください"
 
-#: action.py:278 action.py:353 config.py:205 mobi_stuff.py:162
+#: action.py:276
+#, python-brace-format
+msgid "<p>1 ZIP format added to library. {0} not added. See log for details"
+msgstr ""
+"<p>1 冊の ZIP 形式がライブラリに追加されました。{0} 冊は追加されませんでし"
+"た。詳細はログを確認してください"
+
+#: action.py:278
+#, python-brace-format
+msgid "<p>1 PDF format added to library. {0} not added. See log for details"
+msgstr ""
+"<p>1 冊の PDF 形式がライブラリに追加されました。{0} 冊は追加されませんでし"
+"た。詳細はログを確認してください"
+
+#: action.py:281
+#, python-brace-format
+msgid ""
+"<p>{0} EPUB formats added to library. {1} not added. See log for details"
+msgstr ""
+"<p>{0} 冊の EPUB 形式がライブラリに追加されました。{1} 冊は追加されませんでし"
+"た。詳細はログを確認してください"
+
+#: action.py:283
+#, python-brace-format
+msgid "<p>{0} ZIP formats added to library. {1} not added. See log for details"
+msgstr ""
+"<p>{0} 冊の ZIP 形式がライブラリに追加されました。{1} 冊は追加されませんでし"
+"た。詳細はログを確認してください"
+
+#: action.py:285
+#, python-brace-format
+msgid "<p>{0} PDF formats added to library. {1} not added. See log for details"
+msgstr ""
+"<p>{0} 冊の PDF 形式がライブラリに追加されました。{1} 冊は追加されませんでし"
+"た。詳細はログを確認してください"
+
+#: action.py:291 action.py:374 config.py:205 mobi_stuff.py:162
 #: mobi_stuff.py:168 utilities.py:117
 msgid " v"
 msgstr ""
 
-#: action.py:279
+#: action.py:292
 #, python-brace-format
 msgid "<p>Nothing to do. Perhaps no books selected had {0} formats."
 msgstr ""
 "<p>何もすることがありません。選択された書籍の中に {0} 形式のものがなかった可"
 "能性があります。"
 
-#: action.py:340
-#, python-brace-format
+#: action.py:351
 msgid ""
-" {0} format already exists for this book in this library! No attempt to "
+"An EPUB format already exists for this book in this library! No attempt to "
 "overwrite it will be made."
 msgstr ""
-"このライブラリには、この書籍に対して既に {0} 形式のファイルが存在します。上書"
+"このライブラリには、この書籍に対して既に EPUB 形式のファイルが存在します。上"
+"書きは行われません。"
+
+#: action.py:353
+msgid ""
+"A ZIP format already exists for this book in this library! No attempt to "
+"overwrite it will be made."
+msgstr ""
+"このライブラリには、この書籍に対して既に ZIP 形式のファイルが存在します。上書"
 "きは行われません。"
 
-#: action.py:354
-#, python-brace-format
-msgid "<p>{0} successfully unpacked and added to ebook's formats in library."
+#: action.py:355
+msgid ""
+"A PDF format already exists for this book in this library! No attempt to "
+"overwrite it will be made."
 msgstr ""
-"<p>{0} が正常に解凍され、ライブラリの電子書籍フォーマットに追加されました。"
+"このライブラリには、この書籍に対して既に PDF 形式のファイルが存在します。上書"
+"きは行われません。"
 
-#: action.py:356
-#, python-brace-format
-msgid "Couldn't find {0} in unpacked kindlebook."
-msgstr "解凍した kindlebook の中に {0} が見つかりませんでした。"
+#: action.py:369
+msgid "<p>EPUB successfully unpacked and added to ebook's formats in library."
+msgstr ""
+"<p>EPUB が正常に解凍され、ライブラリの電子書籍フォーマットに追加されました。"
+
+#: action.py:371
+msgid "<p>ZIP successfully unpacked and added to ebook's formats in library."
+msgstr ""
+"<p>ZIP が正常に解凍され、ライブラリの電子書籍フォーマットに追加されました。"
+
+#: action.py:373
+msgid "<p>PDF successfully extracted and added to ebook's formats in library."
+msgstr ""
+"<p>PDF が正常に解凍され、ライブラリの電子書籍フォーマットに追加されました。"
+
+#: action.py:377
+msgid "Couldn't find EPUB in unpacked kindlebook."
+msgstr "解凍した kindlebook の中に EPUB が見つかりませんでした。"
+
+#: action.py:379
+msgid "Couldn't find ZIP in unpacked kindlebook."
+msgstr "解凍した kindlebook の中に ZIP が見つかりませんでした。"
+
+#: action.py:381
+msgid "Couldn't find PDF in unpacked kindlebook."
+msgstr "解凍した kindlebook の中に PDF が見つかりませんでした。"
 
 #: config.py:77
 msgid "Default Unpack Directory:"
