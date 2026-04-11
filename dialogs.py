@@ -74,7 +74,7 @@ class ProgressDialog(QProgressDialog):
             format = format_dict[self.target_format].get_format_details()
 
             if format['errors'] is not None:
-                self.failures.append((2, dtitle, '{0}\'s {1} format might not be a valid mobi/kindlebook.'.format(dtitle, format)))
+                self.failures.append((2, dtitle, _('{0}\'s {1} format might not be a valid mobi/kindlebook.').format(dtitle, format)))
             else:
                 kindle_obj = format['kindle_obj']
 

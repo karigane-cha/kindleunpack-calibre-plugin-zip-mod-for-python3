@@ -241,9 +241,11 @@ def build_log(failures, successes, target, goal, name):
     NOFORMAT_titles, ENCRYPTED_titles, NOSPECIAL_titles, UNKNOWN_titles, EXISTS_titles = [], [], [], [], []
 
     html = ''
-    plural = '' if len(successes) == 1 else 's'
-    html += '<h2>Successes - {0}</h2>\n'.format(len(successes))
-    html += '<h4>{0} {1} format{2} successfully extracted and added to book{2}.</h4>\n'.format(len(successes), goal, plural)
+    html += _('<h2>Successes - {0}</h2>\n').format(len(successes))
+    if len(successes) == 1:
+        html += _('<h4>1 {0} format successfully extracted and added to book.</h4>\n').format(goal)
+    else:
+        html += _('<h4>{0} {1} formats successfully extracted and added to books.</h4>\n').format(len(successes), goal)
     if len(successes):
         html += '<ul>\n'
     for success in successes:
@@ -251,7 +253,7 @@ def build_log(failures, successes, target, goal, name):
     if len(successes):
         html += '</ul>\n'
     html += '<p>&nbsp;</p>\n'
-    html += '<h2>Issues - {0}</h2>\n'.format(len(failures))
+    html += _('<h2>Issues - {0}</h2>\n').format(len(failures))
     for detail in failures:
         if detail[0] == 1:
             NOFORMAT +=1
@@ -332,5 +334,5 @@ def build_log(failures, successes, target, goal, name):
         msg += '</ul>'
     html += msg
     html += '<p>&nbsp;</p>\n<p>&nbsp;</p>\n'
-    html += '<h3>Books that had no {0} format were ignored.</h3>\n'.format(target)
+    html += _('<h3>Books that had no {0} format were ignored.</h3>\n').format(target)
     return html
