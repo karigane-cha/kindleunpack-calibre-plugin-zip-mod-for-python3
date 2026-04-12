@@ -17,6 +17,11 @@ from calibre_plugins.kindleunpack_plugin.kindleunpackcore.mobi_split import mobi
 from calibre_plugins.kindleunpack_plugin.__init__ import PLUGIN_NAME, PLUGIN_VERSION
 from calibre.gui2 import warning_dialog
 
+# pulls in translation files for _() strings
+try:
+    load_translations()
+except NameError:
+    pass # load_translations() added in calibre 1.9
 
 if PY2:
     range = xrange

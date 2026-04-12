@@ -33,6 +33,12 @@ from calibre.gui2.actions import menu_action_unique_name
 from calibre_plugins.kindleunpack_plugin.mobi_stuff import mobiProcessor
 from calibre_plugins.kindleunpack_plugin.__init__ import PLUGIN_NAME, PLUGIN_VERSION
 
+# pulls in translation files for _() strings
+try:
+    load_translations()
+except NameError:
+    pass # load_translations() added in calibre 1.9
+
 plugin_name = None
 plugin_icon_resources = {}
 
