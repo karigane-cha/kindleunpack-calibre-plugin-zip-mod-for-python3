@@ -202,7 +202,7 @@ class ConfigWidget(QWidget):
             errmsg = _('<p>The path specified for the Default Unpack folder does not exist.</p>')
             errmsg += _('<p>Your latest preference changes will <b>NOT</b> be saved!</p>')
             errmsg += _('<p>You should configure again and make sure your settings are correct.')
-            error_dialog(None, _(PLUGIN_NAME + ' v' + PLUGIN_VERSION),
+            error_dialog(None, _('{0} v{1}').format(PLUGIN_NAME, PLUGIN_VERSION),
                                     _(errmsg), show=True)
             return False
         return True

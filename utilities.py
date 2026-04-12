@@ -114,7 +114,7 @@ def showErrorDlg(errmsg, parent, trcbk=False):
         for line in error_mess:
             error = error + str(line) + '\n'
         errmsg = errmsg + '\n\n' + error
-    return error_dialog(parent, _(PLUGIN_NAME + ' v' + PLUGIN_VERSION),
+    return error_dialog(parent, _('{0} v{1}').format(PLUGIN_NAME, PLUGIN_VERSION),
                 _(errmsg), show=True)
 
 

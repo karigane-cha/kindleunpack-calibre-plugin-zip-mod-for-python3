@@ -288,7 +288,7 @@ class InterfacePlugin(InterfaceAction):
             sd = ResultsSummaryDialog(self.gui, title, msg, log)
             sd.exec_()
         else:
-            return info_dialog(None, _(PLUGIN_NAME + ' v' + PLUGIN_VERSION),
+            return info_dialog(None, _('{0} v{1}').format(PLUGIN_NAME, PLUGIN_VERSION),
                 _('<p>Nothing to do. Perhaps no books selected had {0} formats.').format(target_format), show=True)
 
     def highlight_entries(self, ids_to_highlight):
@@ -371,7 +371,7 @@ class InterfacePlugin(InterfaceAction):
                 success_msg = _('<p>ZIP successfully unpacked and added to ebook\'s formats in library.')
             elif format == 'PDF':
                 success_msg = _('<p>PDF successfully extracted and added to ebook\'s formats in library.')
-            return info_dialog(None, _(PLUGIN_NAME + ' v' + PLUGIN_VERSION), success_msg, show=True)
+            return info_dialog(None, _('{0} v{1}').format(PLUGIN_NAME, PLUGIN_VERSION), success_msg, show=True)
 
         if format == 'EPUB':
             errmsg = _('Couldn\'t find EPUB in unpacked kindlebook.')

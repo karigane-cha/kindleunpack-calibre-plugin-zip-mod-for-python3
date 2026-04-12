@@ -158,10 +158,10 @@ class mobiProcessor:
         try:
             open(outMobi, 'wb').write(mobi_to_split.getResult7())
         except:
-            warning_dialog(None, _(PLUGIN_NAME + ' v' + PLUGIN_VERSION),
+            warning_dialog(None, _('{0} v{1}').format(PLUGIN_NAME, PLUGIN_VERSION),
                 _('Could not create MOBI portion of the split'), show=True, show_copy_button=False)
         try: 
             open(outKF8, 'wb').write(mobi_to_split.getResult8())
         except:
-            warning_dialog(None, _(PLUGIN_NAME + ' v' + PLUGIN_VERSION),
+            warning_dialog(None, _('{0} v{1}').format(PLUGIN_NAME, PLUGIN_VERSION),
                 _('Could not create KF8 portion of the split'), show=True, show_copy_button=False)
