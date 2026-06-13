@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-04-12 17:45+0900\n"
-"PO-Revision-Date: 2026-04-12 17:47+0900\n"
+"POT-Creation-Date: 2026-06-13 14:26+0900\n"
+"PO-Revision-Date: 2026-06-13 14:28+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -147,48 +147,56 @@ msgstr ""
 msgid "Select Directory To Unpack Kindle/Mobi Book To"
 msgstr "Kindle/Mobi 書籍を解凍するディレクトリを選択"
 
-#: action.py:244 action.py:250
+#: action.py:244 action.py:251
 msgid "KF8 books"
 msgstr "KF8 形式の書籍"
 
-#: action.py:245
+#: action.py:245 action.py:252
+msgid "KF8 book"
+msgstr "KF8 形式の書籍"
+
+#: action.py:246
 msgid "Unpacking ePubs from"
 msgstr "ePub ファイルに変換中"
 
-#: action.py:251
+#: action.py:253
 msgid "Unpacking ZIPs from"
 msgstr "ZIP ファイルに変換中"
 
-#: action.py:255
+#: action.py:257
 msgid "Print Replica books"
 msgstr "Print Replica 形式の書籍"
 
-#: action.py:256
+#: action.py:258
+msgid "Print Replica book"
+msgstr "Print Replica 形式の書籍"
+
+#: action.py:259
 msgid "Extracting PDFs from"
 msgstr "PDF を抽出中"
 
-#: action.py:274
+#: action.py:277
 #, python-brace-format
 msgid "<p>1 EPUB format added to library. {0} not added. See log for details"
 msgstr ""
 "<p>1 冊の EPUB 形式がライブラリに追加されました。{0} 冊は追加されませんでし"
 "た。詳細はログを確認してください"
 
-#: action.py:276
+#: action.py:279
 #, python-brace-format
 msgid "<p>1 ZIP format added to library. {0} not added. See log for details"
 msgstr ""
 "<p>1 冊の ZIP 形式がライブラリに追加されました。{0} 冊は追加されませんでし"
 "た。詳細はログを確認してください"
 
-#: action.py:278
+#: action.py:281
 #, python-brace-format
 msgid "<p>1 PDF format added to library. {0} not added. See log for details"
 msgstr ""
 "<p>1 冊の PDF 形式がライブラリに追加されました。{0} 冊は追加されませんでし"
 "た。詳細はログを確認してください"
 
-#: action.py:281
+#: action.py:284
 #, python-brace-format
 msgid ""
 "<p>{0} EPUB formats added to library. {1} not added. See log for details"
@@ -196,34 +204,34 @@ msgstr ""
 "<p>{0} 冊の EPUB 形式がライブラリに追加されました。{1} 冊は追加されませんでし"
 "た。詳細はログを確認してください"
 
-#: action.py:283
+#: action.py:286
 #, python-brace-format
 msgid "<p>{0} ZIP formats added to library. {1} not added. See log for details"
 msgstr ""
 "<p>{0} 冊の ZIP 形式がライブラリに追加されました。{1} 冊は追加されませんでし"
 "た。詳細はログを確認してください"
 
-#: action.py:285
+#: action.py:288
 #, python-brace-format
 msgid "<p>{0} PDF formats added to library. {1} not added. See log for details"
 msgstr ""
 "<p>{0} 冊の PDF 形式がライブラリに追加されました。{1} 冊は追加されませんでし"
 "た。詳細はログを確認してください"
 
-#: action.py:291 action.py:374 config.py:205 mobi_stuff.py:166
+#: action.py:294 action.py:377 config.py:205 mobi_stuff.py:166
 #: mobi_stuff.py:171 utilities.py:123
 #, python-brace-format
 msgid "{0} v{1}"
-msgstr ""
+msgstr "{0} v{1}"
 
-#: action.py:292
+#: action.py:295
 #, python-brace-format
 msgid "<p>Nothing to do. Perhaps no books selected had {0} formats."
 msgstr ""
 "<p>何もすることがありません。選択された書籍の中に {0} 形式のものがなかった可"
 "能性があります。"
 
-#: action.py:351
+#: action.py:354
 msgid ""
 "An EPUB format already exists for this book in this library! No attempt to "
 "overwrite it will be made."
@@ -231,7 +239,7 @@ msgstr ""
 "このライブラリには、この書籍に対して既に EPUB 形式のファイルが存在します。上"
 "書きは行われません。"
 
-#: action.py:353
+#: action.py:356
 msgid ""
 "A ZIP format already exists for this book in this library! No attempt to "
 "overwrite it will be made."
@@ -239,7 +247,7 @@ msgstr ""
 "このライブラリには、この書籍に対して既に ZIP 形式のファイルが存在します。上書"
 "きは行われません。"
 
-#: action.py:355
+#: action.py:358
 msgid ""
 "A PDF format already exists for this book in this library! No attempt to "
 "overwrite it will be made."
@@ -247,30 +255,30 @@ msgstr ""
 "このライブラリには、この書籍に対して既に PDF 形式のファイルが存在します。上書"
 "きは行われません。"
 
-#: action.py:369
+#: action.py:372
 msgid "<p>EPUB successfully unpacked and added to ebook's formats in library."
 msgstr ""
 "<p>EPUB が正常に解凍され、ライブラリの電子書籍フォーマットに追加されました。"
 
-#: action.py:371
+#: action.py:374
 msgid "<p>ZIP successfully unpacked and added to ebook's formats in library."
 msgstr ""
 "<p>ZIP が正常に解凍され、ライブラリの電子書籍フォーマットに追加されました。"
 
-#: action.py:373
+#: action.py:376
 msgid "<p>PDF successfully extracted and added to ebook's formats in library."
 msgstr ""
 "<p>PDF が正常に解凍され、ライブラリの電子書籍フォーマットに追加されました。"
 
-#: action.py:377
+#: action.py:380
 msgid "Couldn't find EPUB in unpacked kindlebook."
 msgstr "解凍した kindlebook の中に EPUB が見つかりませんでした。"
 
-#: action.py:379
+#: action.py:382
 msgid "Couldn't find ZIP in unpacked kindlebook."
 msgstr "解凍した kindlebook の中に ZIP が見つかりませんでした。"
 
-#: action.py:381
+#: action.py:384
 msgid "Couldn't find PDF in unpacked kindlebook."
 msgstr "解凍した kindlebook の中に PDF が見つかりませんでした。"
 

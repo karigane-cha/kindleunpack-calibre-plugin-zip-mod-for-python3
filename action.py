@@ -242,17 +242,20 @@ class InterfacePlugin(InterfaceAction):
             attr = 'isKF8'
             goal_format = 'EPUB'
             status_msg_type=_('KF8 books')
+            status_msg_type_singular=_('KF8 book')
             action_type=_('Unpacking ePubs from')
         elif target_format == 'ZIP':
             target_format = 'AZW3'
             attr = 'isKF8'
             goal_format = 'ZIP'
             status_msg_type=_('KF8 books')
+            status_msg_type_singular=_('KF8 book')
             action_type=_('Unpacking ZIPs from')
         elif target_format == 'AZW4':
             attr = 'isPrintReplica'
             goal_format = 'PDF'
             status_msg_type=_('Print Replica books')
+            status_msg_type_singular=_('Print Replica book')
             action_type=_('Extracting PDFs from')
         books_info = self.gatherKindleFormats(book_ids, [target_format], goal_format)
         # If we have stuff ... send it on its way to the pretty ProgressDialog.
@@ -283,7 +286,7 @@ class InterfacePlugin(InterfaceAction):
                     msg = _('<p>{0} ZIP formats added to library. {1} not added. See log for details').format(len(successes), len(failures))
                 elif goal_format == 'PDF':
                     msg = _('<p>{0} PDF formats added to library. {1} not added. See log for details').format(len(successes), len(failures))
-            log = build_log(failures, successes, target_format, goal_format, status_msg_type[:-1])
+            log = build_log(failures, successes, target_format, goal_format, status_msg_type_singular)
             # print (log)
             sd = ResultsSummaryDialog(self.gui, title, msg, log)
             sd.exec_()
