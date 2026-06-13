@@ -12,7 +12,7 @@ English | [日本語](README_ja.md)
 
 ## Changes from the [Original Version](https://github.com/junk2ool/kindleunpack-calibre-plugin-zip-mod)  
 ### kindleunpack  
-- Updated from v0.72.1 to v0.83.8  
+- Updated from v0.72.1 to v0.84.0  
 
 ### kindleunpack/DumpAZW6_v01.py  
 - Modified to support Python 3.  
@@ -31,7 +31,7 @@ English | [日本語](README_ja.md)
 
 ## References  
 - [KindleUnpack the calibre Plugin + ZIP mod](https://github.com/junk2ool/kindleunpack-calibre-plugin-zip-mod): v.0.3  
-- [KindleUnpack the calibre Plugin](https://github.com/dougmassay/kindleunpack-calibre-plugin): v0.83.8  
+- [KindleUnpack the calibre Plugin](https://github.com/dougmassay/kindleunpack-calibre-plugin): v0.84.0  
 - [DumpAZW6_py3.py](https://gist.github.com/fireattack/99b7d9f6b2896cfa33944555d9e2a158)  
 - https://rio2016.5ch.io/test/read.cgi/ebooks/1526467330/  
 The corrections in [>>395](https://rio2016.5ch.io/test/read.cgi/ebooks/1526467330/395) have also been reflected.

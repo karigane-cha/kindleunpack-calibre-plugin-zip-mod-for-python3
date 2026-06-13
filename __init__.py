@@ -18,7 +18,7 @@ PLUGIN_VERSION = '.'.join([str(x) for x in PLUGIN_VERSION_TUPLE])
 PLUGIN_AUTHORS = \
 """junk2ool, karigane-cha.
 Original KindleUnpack - The Plugin + ZIP mod Version: 0.3.0 Released: 30 Mar, 2020, Copyright © 2020 junk2ool.
-Original KindleUnpack - The Plugin Version: 0.83.8 Released: 16 Aug, 2025, Copyright © 2025 DiapDealer.
+Original KindleUnpack - The Plugin Version: 0.84.0 Released: 21 May, 2026, Copyright © 2026 DiapDealer.
 Original mobiunpack.py, Copyright © 2009 Charles M. Hannum <root@ihack.net>.
 Extensions / Improvements Copyright © 2009-2012 P. Durrant, K. Hendricks, S. Siebert, fandrieu, DiapDealer, nickredding, tkeo.\n"""
 

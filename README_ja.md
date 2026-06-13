@@ -12,7 +12,7 @@
 
 ## [オリジナル版](https://github.com/junk2ool/kindleunpack-calibre-plugin-zip-mod)からの変更点  
 ### kindleunpack  
-- v0.72.1 から v0.83.8 に更新。  
+- v0.72.1 から v0.84.0 に更新。  
 
 ### kindleunpack/DumpAZW6_v01.py  
 - Python 3 対応版に変更。  
@@ -31,7 +31,7 @@
 
 ## 参照  
 - [KindleUnpack the calibre Plugin + ZIP mod](https://github.com/junk2ool/kindleunpack-calibre-plugin-zip-mod): v.0.3  
-- [KindleUnpack the calibre Plugin](https://github.com/dougmassay/kindleunpack-calibre-plugin): v0.83.8  
+- [KindleUnpack the calibre Plugin](https://github.com/dougmassay/kindleunpack-calibre-plugin): v0.84.0  
 - [DumpAZW6_py3.py](https://gist.github.com/fireattack/99b7d9f6b2896cfa33944555d9e2a158)  
 - https://rio2016.5ch.io/test/read.cgi/ebooks/1526467330/  
 の [>>395](http://rio2016.5ch.io/test/read.cgi/ebooks/1526467330/395) さんの修正も取り込んでいます。  
