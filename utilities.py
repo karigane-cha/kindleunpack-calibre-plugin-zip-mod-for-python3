@@ -135,7 +135,7 @@ def get_local_images_dir(subfolder=None):
 
 def topaz(f):
     with open(f,'rb') as kindle_file:
-        return (kindle_file.read(3) == str('TPZ'))
+        return kindle_file.read(3) == b'TPZ'
 
 def showErrorDlg(errmsg, parent, trcbk=False):
     if trcbk:
