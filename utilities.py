@@ -1,29 +1,16 @@
 # vim:fileencoding=UTF-8:ts=4:sw=4:sta:et:sts=4:ai
-from __future__ import (unicode_literals, division, absolute_import,
-                        print_function)
-
 __license__   = 'GPL v3'
 __docformat__ = 'restructuredtext en'
 
 
 import os
-# from io import BytesIO as StringIO
-from io import StringIO as UnicodeIO
-try:
-    #  in python2, by StringIO we will mean a stream of byte strings
-    from StringIO import StringIO
-except ImportError:
-    #  in python3, by StringIO we mean a stream of unicode strings
-    StringIO = UnicodeIO
+from io import StringIO
 from traceback import print_exc
 
 try:
     from qt.core import QPixmap, QIcon, QApplication, QPalette
 except ImportError:
-    try:
-        from PyQt5.Qt import QPixmap, QIcon, QApplication, QPalette
-    except ImportError:
-        from PyQt4.Qt import QPixmap, QIcon, QApplication, QPalette
+    from PyQt5.Qt import QPixmap, QIcon, QApplication, QPalette
 
 from calibre.utils.config import config_dir
 from calibre.constants import iswindows
@@ -33,11 +20,8 @@ from calibre.gui2.actions import menu_action_unique_name
 from calibre_plugins.kindleunpack_plugin.mobi_stuff import mobiProcessor
 from calibre_plugins.kindleunpack_plugin.__init__ import PLUGIN_NAME, PLUGIN_VERSION
 
-# pulls in translation files for _() strings
-try:
-    load_translations()
-except NameError:
-    pass # load_translations() added in calibre 1.9
+# Pull in translations for this module's translatable strings.
+load_translations()
 
 plugin_name = None
 plugin_icon_resources = {}
@@ -146,6 +130,7 @@ def showErrorDlg(errmsg, parent, trcbk=False):
         for line in error_mess:
             error = error + str(line) + '\n'
         errmsg = errmsg + '\n\n' + error
+    # TODO(Phase 2B): define whether callers pass msgids, translated text, or errors.
     return error_dialog(parent, _('{0} v{1}').format(PLUGIN_NAME, PLUGIN_VERSION),
                 _(errmsg), show=True)
 
@@ -232,9 +217,9 @@ class KindleFormats:
             all_formats = all_formats.split(',')
         else:
             all_formats = []
-        for format in all_formats:
-            if format in self.target_formats:
-                self.__kindle_formats[format] = KindleFormatDetails(format, self.book_id, self.db, self.goal_format)
+        for format_name in all_formats:
+            if format_name in self.target_formats:
+                self.__kindle_formats[format_name] = KindleFormatDetails(format_name, self.book_id, self.db, self.goal_format)
         return self.__kindle_formats
 
 
@@ -243,8 +228,8 @@ class KindleFormatDetails:
     Build dictionary of errors accessing the internals of the kindlebook through the mobiProcessor object.
     Include the initialized mobiProcessor object (from mobi_stuff.py) as well.
     '''
-    def __init__(self, format, book_id, db, goal_format):
-        self.format, self.book_id, self.db, self.goal_format = format, book_id, db, goal_format
+    def __init__(self, format_name, book_id, db, goal_format):
+        self.format, self.book_id, self.db, self.goal_format = format_name, book_id, db, goal_format
         self.__details = {}
 
     def get_format_details(self):
@@ -269,8 +254,8 @@ class KindleFormatDetails:
         return self.__details
 
 def build_log(failures, successes, target, goal, name):
-    NOFORMAT = ENCRYPTED = NOSPECIAL = UNKNOWN = EXISTS = 0
-    NOFORMAT_titles, ENCRYPTED_titles, NOSPECIAL_titles, UNKNOWN_titles, EXISTS_titles = [], [], [], [], []
+    ENCRYPTED = NOSPECIAL = UNKNOWN = EXISTS = 0
+    ENCRYPTED_titles, NOSPECIAL_titles, UNKNOWN_titles, EXISTS_titles = [], [], [], []
 
     html = ''
     html += _('<h2>Successes - {0}</h2>\n').format(len(successes))
@@ -288,8 +273,7 @@ def build_log(failures, successes, target, goal, name):
     html += _('<h2>Issues - {0}</h2>\n').format(len(failures))
     for detail in failures:
         if detail[0] == 1:
-            NOFORMAT +=1
-            NOFORMAT_titles.append(detail[1])
+            continue
         elif detail[0] == 2:
             ENCRYPTED +=1
             ENCRYPTED_titles.append(detail[1])
@@ -302,18 +286,6 @@ def build_log(failures, successes, target, goal, name):
         else:
             EXISTS +=1
             EXISTS_titles.append(detail[1])
-    '''
-    plural = '' if NOFORMAT == 1 else 's'
-    msg = '<h4>{0} book{2} had no {1} format -- skipped.</h4>\n'.format(NOFORMAT, target, plural)
-    if NOFORMAT:
-        msg += '<ul>\n'
-    for title in NOFORMAT_titles:
-        msg += '<li>{0}</li>\n'.format(title)
-    if NOFORMAT:
-        msg += '</ul>\n'
-    msg += '<p>&nbsp;</p>\n'
-    html += msg
-    '''
     # if ENCRYPTED:
     if ENCRYPTED == 1:
         msg = _('<h4>1 book had encrypted {0} format.</h4>\n').format(target)

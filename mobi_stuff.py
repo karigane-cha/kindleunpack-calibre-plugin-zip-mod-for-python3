@@ -1,30 +1,19 @@
 # vim:fileencoding=UTF-8:ts=4:sw=4:sta:et:sts=4:ai
-from __future__ import (unicode_literals, division, absolute_import,
-                        print_function)
-
 __license__   = 'GPL v3'
 __docformat__ = 'restructuredtext en'
 
 import os
 import struct
-import re
-from io import open
 
 import calibre_plugins.kindleunpack_plugin.config as cfg
 import calibre_plugins.kindleunpack_plugin.kindleunpackcore.kindleunpack as _mu
-from calibre_plugins.kindleunpack_plugin.kindleunpackcore.compatibility_utils import PY2, bstr, unicode_str
+from calibre_plugins.kindleunpack_plugin.kindleunpackcore.compatibility_utils import bstr, unicode_str
 from calibre_plugins.kindleunpack_plugin.kindleunpackcore.mobi_split import mobi_split
 from calibre_plugins.kindleunpack_plugin.__init__ import PLUGIN_NAME, PLUGIN_VERSION
 from calibre.gui2 import warning_dialog
 
-# pulls in translation files for _() strings
-try:
-    load_translations()
-except NameError:
-    pass # load_translations() added in calibre 1.9
-
-if PY2:
-    range = xrange
+# Pull in translations for this module's translatable strings.
+load_translations()
 
 class SectionizerLight:
     """ Stolen from Mobi_Unpack and slightly modified. """
@@ -119,21 +108,19 @@ class mobiProcessor:
 
     def getPDFFile(self, outdir):
         _mu.unpackBook(self.infile, outdir)
-        files = os.listdir(outdir)
-        pdf = ''
-        filefilter = re.compile(r'\.pdf$', re.IGNORECASE)
-        files = filter(filefilter.search, files)
-        if files:
-            for filename in files:
-                pdf = os.path.join(outdir, filename)
-                break
-        else:
+        pdf_path = next(
+            (
+                os.path.join(outdir, filename)
+                for filename in os.listdir(outdir)
+                if filename.lower().endswith('.pdf')
+            ),
+            None,
+        )
+        if pdf_path is None:
             raise Exception(_('Problem locating unpacked pdf.'))
-        if pdf=='':
-            raise Exception(_('Problem locating unpacked pdf.'))
-        if not os.path.exists(pdf):
-            raise Exception(_('Problem locating unpacked pdf: {0}').format(pdf))
-        return pdf
+        if not os.path.exists(pdf_path):
+            raise Exception(_('Problem locating unpacked pdf: {0}').format(pdf_path))
+        return pdf_path
 
     def unpackMOBI(self, outdir):
         _mu.unpackBook(self.infile, outdir, epubver=self.ePubVersion, use_hd=self.useHDImages, contentdir=self.kindleContentDir)
@@ -151,10 +138,10 @@ class mobiProcessor:
         _mu.unpackBook(self.infile, outdir, epubver=self.ePubVersion, use_hd=self.useHDImages, contentdir=self.kindleContentDir, format='ZIP', zipcompresstype=self.zipCompressType)
         kf8dir = os.path.join(outdir, 'mobi8')
         kf8BaseName = os.path.splitext(os.path.basename(self.infile))[0]
-        zip = os.path.join(kf8dir, '{0}.zip'.format(kf8BaseName))
-        if not os.path.exists(zip):
-            raise Exception(_('Problem locating unpacked zip: {0}').format(zip))
-        return zip
+        zip_path = os.path.join(kf8dir, '{0}.zip'.format(kf8BaseName))
+        if not os.path.exists(zip_path):
+            raise Exception(_('Problem locating unpacked zip: {0}').format(zip_path))
+        return zip_path
 
     def writeSplitCombo(self, outdir):
         mobi_to_split = mobi_split(unicode_str(self.infile))
