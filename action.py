@@ -1,7 +1,4 @@
 # vim:fileencoding=UTF-8:ts=4:sw=4:sta:et:sts=4:ai
-from __future__ import (unicode_literals, division, absolute_import,
-                        print_function)
-
 __license__   = 'GPL v3'
 __docformat__ = 'restructuredtext en'
 
@@ -13,10 +10,7 @@ from functools import partial
 try:
     from qt.core import QMenu, QToolButton, QApplication
 except ImportError:
-    try:
-        from PyQt5.Qt import QMenu, QToolButton, QApplication
-    except ImportError:
-        from PyQt4.Qt import QMenu, QToolButton, QApplication
+    from PyQt5.Qt import QMenu, QToolButton, QApplication
 
 from calibre.gui2 import choose_dir, info_dialog, open_local_file
 from calibre.gui2.actions import InterfaceAction
@@ -30,11 +24,8 @@ from calibre_plugins.kindleunpack_plugin.dialogs import ProgressDialog, ResultsS
 from calibre_plugins.kindleunpack_plugin.utilities import (get_icon, KindleFormats, set_plugin_icon_resources,
                                 showErrorDlg, create_menu_item, create_menu_action_unique, build_log)
 
-# pulls in translation files for _() strings
-try:
-    load_translations()
-except NameError:
-    pass # load_translations() added in calibre 1.9
+# Pull in translations for this module's translatable strings.
+load_translations()
 
 class InterfacePlugin(InterfaceAction):
     name = 'KindleUnpack'
@@ -81,20 +72,20 @@ class InterfacePlugin(InterfaceAction):
         m.clear()
 
         tool_tip = _('Convert the KF8 portions of the selected AZW3s to ePubs and add them to their respective books.')
-        create_menu_action_unique(self, m, _('KF8 to ePubs')+'...', 'mimetypes/epub.png', _(tool_tip),
+        create_menu_action_unique(self, m, _('KF8 to ePubs')+'...', 'mimetypes/epub.png', tool_tip,
                                                  False, triggered=partial(self.multi_dispatcher, book_ids, u'AZW3'))
 
         tool_tip = _('Convert the KF8 portions of the selected AZW3s to ZIPs and add them to their respective books.')
-        create_menu_action_unique(self, m, _('KF8 to ZIPs')+'...', 'mimetypes/zip.png', _(tool_tip),
+        create_menu_action_unique(self, m, _('KF8 to ZIPs')+'...', 'mimetypes/zip.png', tool_tip,
                                                  False, triggered=partial(self.multi_dispatcher, book_ids, u'ZIP'))
 
         tool_tip = _('Extract the PDFs from the AZW4 formats and add them to their respective books.')
-        create_menu_action_unique(self, m, _('Extract PDFs')+'...', 'mimetypes/pdf.png', _(tool_tip),
+        create_menu_action_unique(self, m, _('Extract PDFs')+'...', 'mimetypes/pdf.png', tool_tip,
                                                  False, triggered=partial(self.multi_dispatcher, book_ids, u'AZW4'))
 
         m.addSeparator()
         tool_tip = _('Configure the KindleUnpack plugin\'s settings.')
-        create_menu_action_unique(self, m, _('Customize plugin')+'...', 'config.png', _(tool_tip),
+        create_menu_action_unique(self, m, _('Customize plugin')+'...', 'config.png', tool_tip,
                                   None, triggered=self.show_configuration)
         self.gui.keyboard.finalize()
 
@@ -109,39 +100,39 @@ class InterfacePlugin(InterfaceAction):
         book_list = self.gatherKindleFormats([book_id], kindle_formats)
         if not book_list:
             tool_tip = _('No suitable format to unpack.')
-            error_menu = create_menu_item(self, m, _(tool_tip)+'...', None, _(tool_tip), None, None)
+            error_menu = create_menu_item(self, m, tool_tip+'...', None, tool_tip, None, None)
             error_menu.setEnabled(False)
             m.addSeparator()
             tool_tip = _('Configure the KindleUnpack plugin\'s settings.')
-            create_menu_action_unique(self, m, _('Customize plugin')+'...', 'config.png', _(tool_tip),
+            create_menu_action_unique(self, m, _('Customize plugin')+'...', 'config.png', tool_tip,
                                       None, triggered=self.show_configuration)
             self.gui.keyboard.finalize()
             return
 
         format_dict = book_list[0][2]
-        for format in format_dict.keys():
-            format_details = format_dict[format].get_format_details()
+        for format_name in format_dict.keys():
+            format_details = format_dict[format_name].get_format_details()
             # Weird and unlikely possiblity that there is no file on disk for this format at this point.
             if format_details['errors'] is not None and format_details['errors'] == 'path':
                 tool_tip = _('No file on disk. Can\'t unpack.')
-                mnu_msg = _('{0} Has no file associated with it.').format(format)
-                error_menu = create_menu_item(self, m, _(mnu_msg)+'...', None, _(tool_tip),
+                mnu_msg = _('{0} Has no file associated with it.').format(format_name)
+                error_menu = create_menu_item(self, m, mnu_msg+'...', None, tool_tip,
                                             None, None)
                 error_menu.setEnabled(False)
                 continue
             # Topaz format. Punt.
             elif format_details['errors'] is not None and format_details['errors'] == 'topaz':
                 tool_tip = _('Can\'t unpack Topaz books.')
-                mnu_msg = _('{0} format is a Topaz book. Can\'t unpack.').format(format)
-                error_menu = create_menu_item(self, m, _(mnu_msg)+'...', None, _(tool_tip),
+                mnu_msg = _('{0} format is a Topaz book. Can\'t unpack.').format(format_name)
+                error_menu = create_menu_item(self, m, mnu_msg+'...', None, tool_tip,
                                         None, None)
                 error_menu.setEnabled(False)
                 continue
             # Unknown error. Very likely not a valid kindlebook file. Exact error found in format_details['errors'].
             elif format_details['errors'] is not None:
                 tool_tip = _('Unknown issues with this format.')
-                mnu_msg = _('{0} format might not be a valid mobi/kindlebook.').format(format)
-                error_menu = create_menu_item(self, m, _(mnu_msg)+'...', None, _(tool_tip),
+                mnu_msg = _('{0} format might not be a valid mobi/kindlebook.').format(format_name)
+                error_menu = create_menu_item(self, m, mnu_msg+'...', None, tool_tip,
                                             None, None)
                 error_menu.setEnabled(False)
                 continue
@@ -149,38 +140,38 @@ class InterfacePlugin(InterfaceAction):
             kindle_obj = format_details['kindle_obj']
 
             mnu_img = 'drm-unlocked.png'
-            mnu_tip = _('This {0} file is DRM-Free.').format(format)
+            mnu_tip = _('This {0} file is DRM-Free.').format(format_name)
             if kindle_obj.isEncrypted:
                 print('isEncrypted = {0}'.format(kindle_obj.isEncrypted))
-                mnu_tip = _('This {0} file has DRM... can\'t unpack.').format(format)
+                mnu_tip = _('This {0} file has DRM... can\'t unpack.').format(format_name)
                 mnu_img = 'drm-locked.png'
-            ac = create_menu_item(self, m, _(format), mnu_img, _(mnu_tip), None)
+            ac = create_menu_item(self, m, _(format_name), mnu_img, mnu_tip, None)
             sm = QMenu()
             ac.setMenu(sm)
             # Standard unpack to external folder ... disable menu if kindlebook encrypted.
-            tool_tip = _('Unpack the {0}\'s source components').format(format)
-            unpack_menu = create_menu_action_unique(self, sm, _('Unpack {0}').format(format), 'images/explode3.png',
-                                                _(tool_tip), False, triggered=partial(self.unpack_ebook, kindle_obj))
+            tool_tip = _('Unpack the {0}\'s source components').format(format_name)
+            unpack_menu = create_menu_action_unique(self, sm, _('Unpack {0}').format(format_name), 'images/explode3.png',
+                                                tool_tip, False, triggered=partial(self.unpack_ebook, kindle_obj))
             if kindle_obj.isEncrypted:
                 unpack_menu.setEnabled(False)
 
             # Extract PDF file from AZW4
             if kindle_obj.isPrintReplica:
                 tool_tip = _('Extract the PDF from the Print Replica format and add it to the library.')
-                create_menu_action_unique(self, sm, _('Extract PDF')+'...', 'mimetypes/pdf.png', _(tool_tip), False,
+                create_menu_action_unique(self, sm, _('Extract PDF')+'...', 'mimetypes/pdf.png', tool_tip, False,
                                             triggered=partial(self.extract_element, kindle_obj, book_id, u'AZW4', False))
 
             # Offer to split kindlegen dual format output.
             if kindle_obj.isComboFile:
                 tool_tip = _('Split the combo KF8/MOBI file into its two components.')
-                create_menu_action_unique(self, sm, _('Split KF8/MOBI')+'...', 'edit-cut.png', _(tool_tip),
+                create_menu_action_unique(self, sm, _('Split KF8/MOBI')+'...', 'edit-cut.png', tool_tip,
                                             False, triggered=partial(self.combo_split, kindle_obj))
 
             # Extract ePub from the unpacked contents and add to current book's formats.
             convert_menu = None
             if kindle_obj.isKF8 or kindle_obj.isComboFile:
                 tool_tip = _('Convert standalone KF8 file to its original ePub.')
-                convert_menu = create_menu_action_unique(self, sm, _('KF8 to ePub')+'...', 'mimetypes/epub.png', _(tool_tip),
+                convert_menu = create_menu_action_unique(self, sm, _('KF8 to ePub')+'...', 'mimetypes/epub.png', tool_tip,
                                             False, triggered=partial(self.extract_element, kindle_obj, book_id, u'AZW3', False))
             if kindle_obj.isEncrypted and convert_menu is not None:
                 convert_menu.setEnabled(False)
@@ -189,7 +180,7 @@ class InterfacePlugin(InterfaceAction):
             convert_menu = None
             if kindle_obj.isKF8 or kindle_obj.isComboFile:
                 tool_tip = _('Convert standalone KF8 file to ZIP.')
-                convert_menu = create_menu_action_unique(self, sm, _('KF8 to ZIP')+'...', 'mimetypes/zip.png', _(tool_tip),
+                convert_menu = create_menu_action_unique(self, sm, _('KF8 to ZIP')+'...', 'mimetypes/zip.png', tool_tip,
                                             False, triggered=partial(self.extract_element, kindle_obj, book_id, u'ZIP', False))
             if kindle_obj.isEncrypted and convert_menu is not None:
                 convert_menu.setEnabled(False)
@@ -197,19 +188,19 @@ class InterfacePlugin(InterfaceAction):
         # Add menu item to go to plugin configuration.
         m.addSeparator()
         tool_tip = _('Configure the KindleUnpack plugin\'s settings.')
-        create_menu_action_unique(self, m, _('Customize plugin')+'...', 'config.png', _(tool_tip),
+        create_menu_action_unique(self, m, _('Customize plugin')+'...', 'config.png', tool_tip,
                                   None, triggered=self.show_configuration)
         self.gui.keyboard.finalize()
         return
 
-    def update_db(self, bookfile, format, book_id):
+    def update_db(self, bookfile, output_format, book_id):
         '''
         Update the calibre ebook entry with the extracted EPUB/PDF format.
         (never overwriting a pre-existing one)
         '''
         db = self.gui.library_view.model().db
         stream = lopen(bookfile, 'rb')
-        return db.add_format(book_id, format, stream, index_is_id=True, replace=False, notify=True)
+        return db.add_format(book_id, output_format, stream, index_is_id=True, replace=False, notify=True)
 
     def show_configuration(self):
         '''
@@ -334,7 +325,7 @@ class InterfacePlugin(InterfaceAction):
         kindle_obj.setZipCompressType(cfg.plugin_prefs['Zip_Compress_Type'])
         kindle_obj.setKindleContentDir(cfg.plugin_prefs['Kindle_Content_Folder'])
         if target == 'AZW3':
-            format = 'EPUB'
+            output_format = 'EPUB'
             try:
                 bookfile = kindle_obj.unpackEPUB(outdir)
             except Exception as e:
@@ -342,7 +333,7 @@ class InterfacePlugin(InterfaceAction):
                     return False, str(e)
                 return showErrorDlg(str(e), self.gui, True)
         elif target == 'ZIP':
-            format = 'ZIP'
+            output_format = 'ZIP'
             try:
                 bookfile = kindle_obj.unpackZIP(outdir)
             except Exception as e:
@@ -350,7 +341,7 @@ class InterfacePlugin(InterfaceAction):
                     return False, str(e)
                 return showErrorDlg(str(e), self.gui, True)
         elif target == 'AZW4':
-            format = 'PDF'
+            output_format = 'PDF'
             try:
                 bookfile = kindle_obj.getPDFFile(outdir)
             except Exception as e:
@@ -359,12 +350,12 @@ class InterfacePlugin(InterfaceAction):
                 return showErrorDlg(str(e), self.gui, True)
 
         if os.path.exists(bookfile):
-            if not self.update_db(bookfile, format, book_id):
-                if format == 'EPUB':
+            if not self.update_db(bookfile, output_format, book_id):
+                if output_format == 'EPUB':
                     errmsg += _('An EPUB format already exists for this book in this library! No attempt to overwrite it will be made.')
-                elif format == 'ZIP':
+                elif output_format == 'ZIP':
                     errmsg += _('A ZIP format already exists for this book in this library! No attempt to overwrite it will be made.')
-                elif format == 'PDF':
+                elif output_format == 'PDF':
                     errmsg += _('A PDF format already exists for this book in this library! No attempt to overwrite it will be made.')
                 if quiet:
                     return False, None
@@ -378,19 +369,19 @@ class InterfacePlugin(InterfaceAction):
                 self.gui.library_view.model().current_changed(current_idx, current_idx)
             if quiet:
                 return True, None
-            if format == 'EPUB':
+            if output_format == 'EPUB':
                 success_msg = _('<p>EPUB successfully unpacked and added to ebook\'s formats in library.')
-            elif format == 'ZIP':
+            elif output_format == 'ZIP':
                 success_msg = _('<p>ZIP successfully unpacked and added to ebook\'s formats in library.')
-            elif format == 'PDF':
+            elif output_format == 'PDF':
                 success_msg = _('<p>PDF successfully extracted and added to ebook\'s formats in library.')
             return info_dialog(None, _('{0} v{1}').format(PLUGIN_NAME, PLUGIN_VERSION), success_msg, show=True)
 
-        if format == 'EPUB':
+        if output_format == 'EPUB':
             errmsg = _('Couldn\'t find EPUB in unpacked kindlebook.')
-        elif format == 'ZIP':
+        elif output_format == 'ZIP':
             errmsg = _('Couldn\'t find ZIP in unpacked kindlebook.')
-        elif format == 'PDF':
+        elif output_format == 'PDF':
             errmsg = _('Couldn\'t find PDF in unpacked kindlebook.')
         if quiet:
             return False, errmsg

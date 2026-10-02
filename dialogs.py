@@ -1,7 +1,4 @@
 # vim:fileencoding=UTF-8:ts=4:sw=4:sta:et:sts=4:ai
-from __future__ import (unicode_literals, division, absolute_import,
-                        print_function)
-
 __license__   = 'GPL v3'
 __docformat__ = 'restructuredtext en'
 
@@ -9,21 +6,14 @@ try:
     from qt.core import (Qt, QProgressDialog, QTimer, QSize, QDialog, QIcon,
                     QDialogButtonBox, QApplication, QTextBrowser, QVBoxLayout)
 except ImportError:
-    try:
-        from PyQt5.Qt import (Qt, QProgressDialog, QTimer, QSize, QDialog, QIcon,
-                        QDialogButtonBox, QApplication, QTextBrowser, QVBoxLayout)
-    except ImportError:
-        from PyQt4.Qt import (Qt, QProgressDialog, QTimer, QSize, QDialog, QIcon,
-                        QDialogButtonBox, QApplication, QTextBrowser, QVBoxLayout)
+    from PyQt5.Qt import (Qt, QProgressDialog, QTimer, QSize, QDialog, QIcon,
+                    QDialogButtonBox, QApplication, QTextBrowser, QVBoxLayout)
 
 from calibre.gui2.dialogs.message_box import MessageBox
 from calibre_plugins.kindleunpack_plugin.__init__ import (PLUGIN_NAME, PLUGIN_VERSION)
 
-# pulls in translation files for _() strings
-try:
-    load_translations()
-except NameError:
-    pass # load_translations() added in calibre 1.9
+# Pull in translations for this module's translatable strings.
+load_translations()
 
 class ProgressDialog(QProgressDialog):
     '''
@@ -71,25 +61,25 @@ class ProgressDialog(QProgressDialog):
         self.setLabelText(_('{0}: {1}').format(self.action_type, dtitle))
 
         if self.target_format in format_dict.keys():
-            format = format_dict[self.target_format].get_format_details()
+            format_details = format_dict[self.target_format].get_format_details()
 
-            if format['errors'] is not None:
+            if format_details['errors'] is not None:
                 self.failures.append((2, dtitle, _('{0}\'s {1} format might not be a valid mobi/kindlebook.').format(dtitle, self.target_format)))
             else:
-                kindle_obj = format['kindle_obj']
+                kindle_obj = format_details['kindle_obj']
 
                 if not kindle_obj.isEncrypted:
                     if getattr(kindle_obj, self.attr):
-                        if format['goal_format'] not in all_formats:
+                        if format_details['goal_format'] not in all_formats:
                             success, error = self.callback_fn(kindle_obj, book_id, self.target_format, True)
                             if success:
                                 self.successes.append((book_id, dtitle))
                             elif error is None:
-                                self.failures.append((5, dtitle, _('{0} already has a {1} format. Won\'t overwrite.').format(dtitle, format['goal_format'])))
+                                self.failures.append((5, dtitle, _('{0} already has a {1} format. Won\'t overwrite.').format(dtitle, format_details['goal_format'])))
                             else:
                                 self.failures.append((4, dtitle, _('Unknown error processing {0}\'s {1} format').format(dtitle, self.target_format)))
                         else:
-                            self.failures.append((5, dtitle, _('{0} already has a {1} format. Won\'t overwrite.').format(dtitle, format['goal_format'])))
+                            self.failures.append((5, dtitle, _('{0} already has a {1} format. Won\'t overwrite.').format(dtitle, format_details['goal_format'])))
                     else:
                         self.failures.append((3, dtitle, _('{0}\'s {1} format is not a {2} book.').format(dtitle, self.target_format, self.kindle_type)))
                 else:

@@ -1,32 +1,15 @@
 # vim:fileencoding=UTF-8:ts=4:sw=4:sta:et:sts=4:ai
-from __future__ import (unicode_literals, division, absolute_import,
-                        print_function)
-
 __license__   = 'GPL v3'
 __docformat__ = 'restructuredtext en'
 
-import os, sys
-
-PY2 = sys.version_info[0] == 2
-PY3 = sys.version_info[0] == 3
-if PY3:
-    text_type = str
-    binary_type = bytes
-else:
-    range = xrange
-    text_type = unicode
-    binary_type = str
+import os
 
 try:
     from qt.core import (QWidget, QLabel, QLineEdit, QPushButton, QCheckBox,
                         QGroupBox, QVBoxLayout, QComboBox)
 except ImportError:
-    try:
-        from PyQt5.Qt import (QWidget, QLabel, QLineEdit, QPushButton, QCheckBox,
-                                QGroupBox, QVBoxLayout, QComboBox)
-    except ImportError:
-        from PyQt4.Qt import (QWidget, QLabel, QLineEdit, QPushButton, QCheckBox,
-                                QGroupBox, QVBoxLayout, QComboBox)
+    from PyQt5.Qt import (QWidget, QLabel, QLineEdit, QPushButton, QCheckBox,
+                            QGroupBox, QVBoxLayout, QComboBox)
 
 from calibre.utils.config import JSONConfig
 try:
@@ -37,11 +20,8 @@ from calibre.gui2 import choose_dir, error_dialog
 
 from calibre_plugins.kindleunpack_plugin.__init__ import PLUGIN_NAME, PLUGIN_VERSION
 
-# pulls in translation files for _() strings
-try:
-    load_translations()
-except NameError:
-    pass # load_translations() added in calibre 1.9
+# Pull in translations for this module's translatable strings.
+load_translations()
 
 PLUGIN_ICONS = ['images/explode3.png', 'images/acrobat.png']
 
@@ -163,19 +143,19 @@ class ConfigWidget(QWidget):
 
     def save_settings(self):
         # Save current dialog sttings back to JSON config file
-            plugin_prefs['Unpack_Folder'] = text_type(self.directory_txtBox.displayText())
+            plugin_prefs['Unpack_Folder'] = str(self.directory_txtBox.displayText())
             plugin_prefs['Always_Use_Unpack_Folder'] = self.default_folder_check.isChecked()
             plugin_prefs['Use_HD_Images'] = self.use_hd_images.isChecked()
-            if text_type(self.epub_version_combobox.currentText()) == _('Auto-detect'):
+            if str(self.epub_version_combobox.currentText()) == _('Auto-detect'):
                 plugin_prefs['Epub_Version'] = 'A'
             else:
-                plugin_prefs['Epub_Version'] = text_type(self.epub_version_combobox.currentText())[4:]
+                plugin_prefs['Epub_Version'] = str(self.epub_version_combobox.currentText())[4:]
             # ZIP mod
-            if text_type(self.zip_compress_type_combobox.currentText()) == _('STORE'):
+            if str(self.zip_compress_type_combobox.currentText()) == _('STORE'):
                 plugin_prefs['Zip_Compress_Type'] = 'S'
             else:
                 plugin_prefs['Zip_Compress_Type'] = 'D'
-            plugin_prefs['Kindle_Content_Folder'] = text_type(self.kindle_directory_txtBox.displayText())
+            plugin_prefs['Kindle_Content_Folder'] = str(self.kindle_directory_txtBox.displayText())
             plugin_prefs['Always_Delete_Temp_Files'] = self.delete_temp_files.isChecked()
 
     def getDirectory(self):
@@ -203,6 +183,6 @@ class ConfigWidget(QWidget):
             errmsg += _('<p>Your latest preference changes will <b>NOT</b> be saved!</p>')
             errmsg += _('<p>You should configure again and make sure your settings are correct.')
             error_dialog(None, _('{0} v{1}').format(PLUGIN_NAME, PLUGIN_VERSION),
-                                    _(errmsg), show=True)
+                                    errmsg, show=True)
             return False
         return True
