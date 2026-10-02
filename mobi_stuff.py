@@ -119,7 +119,7 @@ class mobiProcessor:
         if pdf_path is None:
             raise Exception(_('Problem locating unpacked pdf.'))
         if not os.path.exists(pdf_path):
-            raise Exception(_('Problem locating unpacked pdf: {0}').format(pdf_path))
+            raise Exception(_('Problem locating the unpacked {0} file: {1}').format('PDF', pdf_path))
         return pdf_path
 
     def unpackMOBI(self, outdir):
@@ -131,7 +131,7 @@ class mobiProcessor:
         kf8BaseName = os.path.splitext(os.path.basename(self.infile))[0]
         epub = os.path.join(kf8dir, '{0}.epub'.format(kf8BaseName))
         if not os.path.exists(epub):
-            raise Exception(_('Problem locating unpacked epub: {0}').format(epub))
+            raise Exception(_('Problem locating the unpacked {0} file: {1}').format('EPUB', epub))
         return epub
 
     def unpackZIP(self, outdir):
@@ -140,7 +140,7 @@ class mobiProcessor:
         kf8BaseName = os.path.splitext(os.path.basename(self.infile))[0]
         zip_path = os.path.join(kf8dir, '{0}.zip'.format(kf8BaseName))
         if not os.path.exists(zip_path):
-            raise Exception(_('Problem locating unpacked zip: {0}').format(zip_path))
+            raise Exception(_('Problem locating the unpacked {0} file: {1}').format('ZIP', zip_path))
         return zip_path
 
     def writeSplitCombo(self, outdir):

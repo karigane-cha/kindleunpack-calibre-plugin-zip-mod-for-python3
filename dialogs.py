@@ -35,7 +35,11 @@ class ProgressDialog(QProgressDialog):
             self.goal = 'PDF'
         self.gui = gui
         zero = 0
-        self.setWindowTitle(_('{0} {1} {2} ({3} issues)...').format(self.action_type, self.total_count, self.status_msg_type, zero))
+        self.setWindowTitle(ngettext(
+            '{0} {1} {2} ({3} issue)...',
+            '{0} {1} {2} ({3} issues)...',
+            zero,
+        ).format(self.action_type, self.total_count, self.status_msg_type, zero))
         self.i, self.successes, self.failures = 0, [], []
         QTimer.singleShot(0, self.do_multiple_book_action)
         self.exec_()
@@ -56,8 +60,12 @@ class ProgressDialog(QProgressDialog):
         else:
             all_formats = []
 
-        self.setWindowTitle(_('{0} {1} {2} ({3} issues)...').format(self.action_type, self.total_count,
-                                                                self.status_msg_type, len(self.failures)))
+        issue_count = len(self.failures)
+        self.setWindowTitle(ngettext(
+            '{0} {1} {2} ({3} issue)...',
+            '{0} {1} {2} ({3} issues)...',
+            issue_count,
+        ).format(self.action_type, self.total_count, self.status_msg_type, issue_count))
         self.setLabelText(_('{0}: {1}').format(self.action_type, dtitle))
 
         if self.target_format in format_dict.keys():

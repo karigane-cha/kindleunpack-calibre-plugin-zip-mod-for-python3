@@ -145,7 +145,7 @@ class InterfacePlugin(InterfaceAction):
                 print('isEncrypted = {0}'.format(kindle_obj.isEncrypted))
                 mnu_tip = _('This {0} file has DRM... can\'t unpack.').format(format_name)
                 mnu_img = 'drm-locked.png'
-            ac = create_menu_item(self, m, _(format_name), mnu_img, mnu_tip, None)
+            ac = create_menu_item(self, m, format_name, mnu_img, mnu_tip, None)
             sm = QMenu()
             ac.setMenu(sm)
             # Standard unpack to external folder ... disable menu if kindlebook encrypted.
@@ -215,7 +215,7 @@ class InterfacePlugin(InterfaceAction):
         if cfg.plugin_prefs['Always_Use_Unpack_Folder']:
             return cfg.plugin_prefs['Unpack_Folder']
         else:
-            return choose_dir(self.gui, _(PLUGIN_NAME + 'dir_chooser'),
+            return choose_dir(self.gui, PLUGIN_NAME + 'dir_chooser',
                 _('Select Directory To Unpack Kindle/Mobi Book To'))
 
     def gatherKindleFormats(self, book_ids, target_formats, goal_format=None):
@@ -242,25 +242,27 @@ class InterfacePlugin(InterfaceAction):
         if target_format == 'AZW3':
             attr = 'isKF8'
             goal_format = 'EPUB'
-            status_msg_type=_('KF8 books')
-            status_msg_type_singular=_('KF8 book')
-            action_type=_('Unpacking ePubs from')
         elif target_format == 'ZIP':
             target_format = 'AZW3'
             attr = 'isKF8'
             goal_format = 'ZIP'
-            status_msg_type=_('KF8 books')
-            status_msg_type_singular=_('KF8 book')
-            action_type=_('Unpacking ZIPs from')
         elif target_format == 'AZW4':
             attr = 'isPrintReplica'
             goal_format = 'PDF'
-            status_msg_type=_('Print Replica books')
-            status_msg_type_singular=_('Print Replica book')
-            action_type=_('Extracting PDFs from')
         books_info = self.gatherKindleFormats(book_ids, [target_format], goal_format)
         # If we have stuff ... send it on its way to the pretty ProgressDialog.
         if books_info:
+            book_count = len(books_info)
+            if target_format == 'AZW4':
+                status_msg_type = ngettext('Print Replica book', 'Print Replica books', book_count)
+                status_msg_type_singular = ngettext('Print Replica book', 'Print Replica books', 1)
+            else:
+                status_msg_type = ngettext('KF8 book', 'KF8 books', book_count)
+                status_msg_type_singular = ngettext('KF8 book', 'KF8 books', 1)
+            if goal_format == 'PDF':
+                action_type = ngettext('Extracting {0} from', 'Extracting {0}s from', book_count).format(goal_format)
+            else:
+                action_type = ngettext('Unpacking {0} from', 'Unpacking {0}s from', book_count).format(goal_format)
             d = ProgressDialog(self.gui, books_info, self.extract_element, db, target_format, attr, goal_format,
                                    status_msg_type=status_msg_type, action_type=action_type)
             if d.wasCanceled():
@@ -272,21 +274,13 @@ class InterfacePlugin(InterfaceAction):
                     ids_to_highlight.append(i[0])
                 self.highlight_entries(ids_to_highlight)
             title = PLUGIN_NAME + ' v' + PLUGIN_VERSION
-            # Form message based on format and count
-            if len(successes) == 1:
-                if goal_format == 'EPUB':
-                    msg = _('<p>1 EPUB format added to library. {0} not added. See log for details').format(len(failures))
-                elif goal_format == 'ZIP':
-                    msg = _('<p>1 ZIP format added to library. {0} not added. See log for details').format(len(failures))
-                elif goal_format == 'PDF':
-                    msg = _('<p>1 PDF format added to library. {0} not added. See log for details').format(len(failures))
-            else:
-                if goal_format == 'EPUB':
-                    msg = _('<p>{0} EPUB formats added to library. {1} not added. See log for details').format(len(successes), len(failures))
-                elif goal_format == 'ZIP':
-                    msg = _('<p>{0} ZIP formats added to library. {1} not added. See log for details').format(len(successes), len(failures))
-                elif goal_format == 'PDF':
-                    msg = _('<p>{0} PDF formats added to library. {1} not added. See log for details').format(len(successes), len(failures))
+            success_count = len(successes)
+            failure_count = len(failures)
+            msg = ngettext(
+                '<p>{0} {1} format added to library. {2} not added. See log for details.</p>',
+                '<p>{0} {1} formats added to library. {2} not added. See log for details.</p>',
+                success_count,
+            ).format(success_count, goal_format, failure_count)
             log = build_log(failures, successes, target_format, goal_format, status_msg_type_singular)
             # print (log)
             sd = ResultsSummaryDialog(self.gui, title, msg, log)
@@ -321,7 +315,6 @@ class InterfacePlugin(InterfaceAction):
         ExtractPDFs/EPUBs from AZW4/AZW3 format(s).
         '''
         outdir = PersistentTemporaryDirectory()
-        errmsg = ''
         kindle_obj.setZipCompressType(cfg.plugin_prefs['Zip_Compress_Type'])
         kindle_obj.setKindleContentDir(cfg.plugin_prefs['Kindle_Content_Folder'])
         if target == 'AZW3':
@@ -351,12 +344,7 @@ class InterfacePlugin(InterfaceAction):
 
         if os.path.exists(bookfile):
             if not self.update_db(bookfile, output_format, book_id):
-                if output_format == 'EPUB':
-                    errmsg += _('An EPUB format already exists for this book in this library! No attempt to overwrite it will be made.')
-                elif output_format == 'ZIP':
-                    errmsg += _('A ZIP format already exists for this book in this library! No attempt to overwrite it will be made.')
-                elif output_format == 'PDF':
-                    errmsg += _('A PDF format already exists for this book in this library! No attempt to overwrite it will be made.')
+                errmsg = _('This book already has the {0} format in this library; it will not be overwritten.').format(output_format)
                 if quiet:
                     return False, None
                 return showErrorDlg(errmsg, self.gui)
@@ -369,20 +357,13 @@ class InterfacePlugin(InterfaceAction):
                 self.gui.library_view.model().current_changed(current_idx, current_idx)
             if quiet:
                 return True, None
-            if output_format == 'EPUB':
-                success_msg = _('<p>EPUB successfully unpacked and added to ebook\'s formats in library.')
-            elif output_format == 'ZIP':
-                success_msg = _('<p>ZIP successfully unpacked and added to ebook\'s formats in library.')
+            if output_format in ('EPUB', 'ZIP'):
+                success_msg = _('<p>The {0} was successfully unpacked and added to the book\'s formats in the library.</p>').format(output_format)
             elif output_format == 'PDF':
-                success_msg = _('<p>PDF successfully extracted and added to ebook\'s formats in library.')
+                success_msg = _('<p>The PDF was successfully extracted and added to the book\'s formats in the library.</p>')
             return info_dialog(None, _('{0} v{1}').format(PLUGIN_NAME, PLUGIN_VERSION), success_msg, show=True)
 
-        if output_format == 'EPUB':
-            errmsg = _('Couldn\'t find EPUB in unpacked kindlebook.')
-        elif output_format == 'ZIP':
-            errmsg = _('Couldn\'t find ZIP in unpacked kindlebook.')
-        elif output_format == 'PDF':
-            errmsg = _('Couldn\'t find PDF in unpacked kindlebook.')
+        errmsg = _('Could not find {0} in the unpacked Kindle book.').format(output_format)
         if quiet:
             return False, errmsg
         return showErrorDlg(errmsg, self.gui)

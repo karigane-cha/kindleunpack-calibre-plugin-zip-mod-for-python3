@@ -159,7 +159,7 @@ class ConfigWidget(QWidget):
             plugin_prefs['Always_Delete_Temp_Files'] = self.delete_temp_files.isChecked()
 
     def getDirectory(self):
-        c = choose_dir(self, _(PLUGIN_NAME + 'dir_chooser'),
+        c = choose_dir(self, PLUGIN_NAME + 'dir_chooser',
                 _('Select Default Directory To Unpack Kindle Book/Mobi To'))
         if c:
             self.directory_txtBox.setReadOnly(False)
@@ -167,7 +167,7 @@ class ConfigWidget(QWidget):
             self.directory_txtBox.setReadOnly(True)
 
     def getDirectoryKindleContent(self):
-        c = choose_dir(self, _(PLUGIN_NAME + 'dir_chooser'),
+        c = choose_dir(self, PLUGIN_NAME + 'dir_chooser',
                 _('Select Kindle Content Directory'))
         if c:
             self.kindle_directory_txtBox.setReadOnly(False)

@@ -122,6 +122,7 @@ def topaz(f):
         return kindle_file.read(3) == b'TPZ'
 
 def showErrorDlg(errmsg, parent, trcbk=False):
+    """Display ready-to-show text; callers translate static messages once."""
     if trcbk:
         error= ''
         f=StringIO()
@@ -130,9 +131,8 @@ def showErrorDlg(errmsg, parent, trcbk=False):
         for line in error_mess:
             error = error + str(line) + '\n'
         errmsg = errmsg + '\n\n' + error
-    # TODO(Phase 2B): define whether callers pass msgids, translated text, or errors.
     return error_dialog(parent, _('{0} v{1}').format(PLUGIN_NAME, PLUGIN_VERSION),
-                _(errmsg), show=True)
+                errmsg, show=True)
 
 
 def create_menu_item(ia, parent_menu, menu_text, image=None, tooltip=None,
@@ -258,11 +258,17 @@ def build_log(failures, successes, target, goal, name):
     ENCRYPTED_titles, NOSPECIAL_titles, UNKNOWN_titles, EXISTS_titles = [], [], [], []
 
     html = ''
-    html += _('<h2>Successes - {0}</h2>\n').format(len(successes))
-    if len(successes) == 1:
-        html += _('<h4>1 {0} format successfully extracted and added to book.</h4>\n').format(goal)
-    else:
-        html += _('<h4>{0} {1} formats successfully extracted and added to books.</h4>\n').format(len(successes), goal)
+    success_count = len(successes)
+    html += ngettext(
+        '<h2>Success - {0}</h2>\n',
+        '<h2>Successes - {0}</h2>\n',
+        success_count,
+    ).format(success_count)
+    html += ngettext(
+        '<h4>{0} {1} format successfully extracted and added to a book.</h4>\n',
+        '<h4>{0} {1} formats successfully extracted and added to books.</h4>\n',
+        success_count,
+    ).format(success_count, goal)
     if len(successes):
         html += '<ul>\n'
     for success in successes:
@@ -270,7 +276,12 @@ def build_log(failures, successes, target, goal, name):
     if len(successes):
         html += '</ul>\n'
     html += '<p>&nbsp;</p>\n'
-    html += _('<h2>Issues - {0}</h2>\n').format(len(failures))
+    failure_count = len(failures)
+    html += ngettext(
+        '<h2>Issue - {0}</h2>\n',
+        '<h2>Issues - {0}</h2>\n',
+        failure_count,
+    ).format(failure_count)
     for detail in failures:
         if detail[0] == 1:
             continue
@@ -286,11 +297,11 @@ def build_log(failures, successes, target, goal, name):
         else:
             EXISTS +=1
             EXISTS_titles.append(detail[1])
-    # if ENCRYPTED:
-    if ENCRYPTED == 1:
-        msg = _('<h4>1 book had encrypted {0} format.</h4>\n').format(target)
-    else:
-        msg = _('<h4>{0} books had encrypted {1} formats.</h4>\n').format(ENCRYPTED, target)
+    msg = ngettext(
+        '<h4>{0} book had an encrypted {1} format.</h4>\n',
+        '<h4>{0} books had an encrypted {1} format.</h4>\n',
+        ENCRYPTED,
+    ).format(ENCRYPTED, target)
     if ENCRYPTED:
         msg += '<ul>\n'
     for title in ENCRYPTED_titles:
@@ -299,11 +310,11 @@ def build_log(failures, successes, target, goal, name):
         msg += '</ul>\n'
     msg += '<p>&nbsp;</p>\n'
     html += msg
-    # if NOSPECIAL:
-    if NOSPECIAL == 1:
-        msg = _('<h4>1 book\'s {0} format contained no {1}.</h4>\n').format(target, name)
-    else:
-        msg = _('<h4>{0} books\' {1} formats contained no {2}.</h4>\n').format(NOSPECIAL, target, name)
+    msg = ngettext(
+        '<h4>{0} book\'s {1} format contained no {2}.</h4>\n',
+        '<h4>{0} books\' {1} format contained no {2}.</h4>\n',
+        NOSPECIAL,
+    ).format(NOSPECIAL, target, name)
     if NOSPECIAL:
         msg += '<ul>\n'
     for title in NOSPECIAL_titles:
@@ -312,11 +323,11 @@ def build_log(failures, successes, target, goal, name):
         msg += '</ul>\n'
     msg += '<p>&nbsp;</p>\n'
     html += msg
-    # if EXISTS:
-    if EXISTS == 1:
-        msg = _('<h4>1 book already had {0} format -- will not overwrite.</h4>\n').format(goal)
-    else:
-        msg = _('<h4>{0} books already had {1} formats -- will not overwrite.</h4>\n').format(EXISTS, goal)
+    msg = ngettext(
+        '<h4>{0} book already had the {1} format; it will not be overwritten.</h4>\n',
+        '<h4>{0} books already had the {1} format; they will not be overwritten.</h4>\n',
+        EXISTS,
+    ).format(EXISTS, goal)
     if EXISTS:
         msg += '<ul>\n'
     for title in EXISTS_titles:
@@ -325,11 +336,11 @@ def build_log(failures, successes, target, goal, name):
         msg += '</ul>\n'
     msg += '<p>&nbsp;</p>\n'
     html += msg
-    # if UNKNOWN:
-    if UNKNOWN == 1:
-        msg = _('<h4>1 book had unknown errors processing the {0} format.</h4>\n').format(target)
-    else:
-        msg = _('<h4>{0} books had unknown errors processing the {1} formats.</h4>\n').format(UNKNOWN, target)
+    msg = ngettext(
+        '<h4>{0} book had an unknown error while processing the {1} format.</h4>\n',
+        '<h4>{0} books had unknown errors while processing the {1} format.</h4>\n',
+        UNKNOWN,
+    ).format(UNKNOWN, target)
     if UNKNOWN:
         msg += '<ul>\n'
     for title in UNKNOWN_titles:
