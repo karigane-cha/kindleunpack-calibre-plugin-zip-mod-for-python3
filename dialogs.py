@@ -71,7 +71,10 @@ class ProgressDialog(QProgressDialog):
                 if not kindle_obj.isEncrypted:
                     if getattr(kindle_obj, self.attr):
                         if format_details['goal_format'] not in all_formats:
-                            success, error = self.callback_fn(kindle_obj, book_id, self.target_format, True)
+                            callback_target = self.target_format
+                            if format_details['goal_format'] == 'ZIP':
+                                callback_target = 'ZIP'
+                            success, error = self.callback_fn(kindle_obj, book_id, callback_target, True)
                             if success:
                                 self.successes.append((book_id, dtitle))
                             elif error is None:
