@@ -9,6 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.9\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: _;ngettext:1,2\n"
@@ -139,84 +140,38 @@ msgstr "スタンドアロンの KF8 ファイルを元の ZIP ファイルに�
 msgid "KF8 to ZIP"
 msgstr "KF8 を ZIP に変換"
 
-#: action.py:227 config.py:182 config.py:190
-msgid "dir_chooser"
-msgstr ""
-
 #: action.py:228
 msgid "Select Directory To Unpack Kindle/Mobi Book To"
 msgstr "Kindle/Mobi 書籍を解凍するディレクトリを選択"
 
-#: action.py:254 action.py:261
-msgid "KF8 books"
-msgstr "KF8 形式の書籍"
-
-#: action.py:255 action.py:262
+#: action.py:260
 msgid "KF8 book"
-msgstr "KF8 形式の書籍"
+msgid_plural "KF8 books"
+msgstr[0] "KF8 形式の書籍"
 
-#: action.py:256
-msgid "Unpacking ePubs from"
-msgstr "ePub ファイルに変換中"
+#: action.py:257
+msgid "Print Replica book"
+msgid_plural "Print Replica books"
+msgstr[0] "Print Replica 形式の書籍"
+
+#: action.py:265
+#, python-brace-format
+msgid "Unpacking {0} from"
+msgid_plural "Unpacking {0}s from"
+msgstr[0] "{0} ファイルを解凍中"
 
 #: action.py:263
-msgid "Unpacking ZIPs from"
-msgstr "ZIP ファイルに変換中"
-
-#: action.py:267
-msgid "Print Replica books"
-msgstr "Print Replica 形式の書籍"
-
-#: action.py:268
-msgid "Print Replica book"
-msgstr "Print Replica 形式の書籍"
-
-#: action.py:269
-msgid "Extracting PDFs from"
-msgstr "PDF を抽出中"
-
-#: action.py:287
 #, python-brace-format
-msgid "<p>1 EPUB format added to library. {0} not added. See log for details"
-msgstr ""
-"<p>1 冊の EPUB 形式がライブラリに追加されました。{0} 冊は追加されませんでし"
-"た。詳細はログを確認してください"
+msgid "Extracting {0} from"
+msgid_plural "Extracting {0}s from"
+msgstr[0] "{0} を抽出中"
 
-#: action.py:289
+#: action.py:279
 #, python-brace-format
-msgid "<p>1 ZIP format added to library. {0} not added. See log for details"
-msgstr ""
-"<p>1 冊の ZIP 形式がライブラリに追加されました。{0} 冊は追加されませんでし"
-"た。詳細はログを確認してください"
-
-#: action.py:291
-#, python-brace-format
-msgid "<p>1 PDF format added to library. {0} not added. See log for details"
-msgstr ""
-"<p>1 冊の PDF 形式がライブラリに追加されました。{0} 冊は追加されませんでし"
-"た。詳細はログを確認してください"
-
-#: action.py:294
-#, python-brace-format
-msgid ""
-"<p>{0} EPUB formats added to library. {1} not added. See log for details"
-msgstr ""
-"<p>{0} 冊の EPUB 形式がライブラリに追加されました。{1} 冊は追加されませんでし"
-"た。詳細はログを確認してください"
-
-#: action.py:296
-#, python-brace-format
-msgid "<p>{0} ZIP formats added to library. {1} not added. See log for details"
-msgstr ""
-"<p>{0} 冊の ZIP 形式がライブラリに追加されました。{1} 冊は追加されませんでし"
-"た。詳細はログを確認してください"
-
-#: action.py:298
-#, python-brace-format
-msgid "<p>{0} PDF formats added to library. {1} not added. See log for details"
-msgstr ""
-"<p>{0} 冊の PDF 形式がライブラリに追加されました。{1} 冊は追加されませんでし"
-"た。詳細はログを確認してください"
+#| msgid "<p>1 EPUB format added to library. {0} not added. See log for details"
+msgid "<p>{0} {1} format added to library. {2} not added. See log for details.</p>"
+msgid_plural "<p>{0} {1} formats added to library. {2} not added. See log for details.</p>"
+msgstr[0] "<p>{1} 形式を {0} 件ライブラリに追加しました。{2} 件は追加できませんでした。詳細はログを確認してください。</p>"
 
 #: action.py:304 action.py:387 config.py:205 mobi_stuff.py:166
 #: mobi_stuff.py:171 utilities.py:149
@@ -231,56 +186,24 @@ msgstr ""
 "<p>何もすることがありません。選択された書籍の中に {0} 形式のものがなかった可"
 "能性があります。"
 
-#: action.py:364
-msgid ""
-"An EPUB format already exists for this book in this library! No attempt to "
-"overwrite it will be made."
-msgstr ""
-"このライブラリには、この書籍に対して既に EPUB 形式のファイルが存在します。上"
-"書きは行われません。"
+#: action.py:347
+#, python-brace-format
+msgid "This book already has the {0} format in this library; it will not be overwritten."
+msgstr "このライブラリには、この書籍の {0} 形式がすでに存在するため、上書きしません。"
+
+#: action.py:361
+#, python-brace-format
+msgid "<p>The {0} was successfully unpacked and added to the book's formats in the library.</p>"
+msgstr "<p>{0} は正常に解凍され、ライブラリの書籍形式に追加されました。</p>"
+
+#: action.py:363
+msgid "<p>The PDF was successfully extracted and added to the book's formats in the library.</p>"
+msgstr "<p>PDF を正常に抽出し、ライブラリの書籍形式に追加しました。</p>"
 
 #: action.py:366
-msgid ""
-"A ZIP format already exists for this book in this library! No attempt to "
-"overwrite it will be made."
-msgstr ""
-"このライブラリには、この書籍に対して既に ZIP 形式のファイルが存在します。上書"
-"きは行われません。"
-
-#: action.py:368
-msgid ""
-"A PDF format already exists for this book in this library! No attempt to "
-"overwrite it will be made."
-msgstr ""
-"このライブラリには、この書籍に対して既に PDF 形式のファイルが存在します。上書"
-"きは行われません。"
-
-#: action.py:382
-msgid "<p>EPUB successfully unpacked and added to ebook's formats in library."
-msgstr ""
-"<p>EPUB が正常に解凍され、ライブラリの電子書籍フォーマットに追加されました。"
-
-#: action.py:384
-msgid "<p>ZIP successfully unpacked and added to ebook's formats in library."
-msgstr ""
-"<p>ZIP が正常に解凍され、ライブラリの電子書籍フォーマットに追加されました。"
-
-#: action.py:386
-msgid "<p>PDF successfully extracted and added to ebook's formats in library."
-msgstr ""
-"<p>PDF が正常に解凍され、ライブラリの電子書籍フォーマットに追加されました。"
-
-#: action.py:390
-msgid "Couldn't find EPUB in unpacked kindlebook."
-msgstr "解凍した kindlebook の中に EPUB が見つかりませんでした。"
-
-#: action.py:392
-msgid "Couldn't find ZIP in unpacked kindlebook."
-msgstr "解凍した kindlebook の中に ZIP が見つかりませんでした。"
-
-#: action.py:394
-msgid "Couldn't find PDF in unpacked kindlebook."
-msgstr "解凍した kindlebook の中に PDF が見つかりませんでした。"
+#, python-brace-format
+msgid "Could not find {0} in the unpacked Kindle book."
+msgstr "解凍した Kindle 書籍の中に {0} が見つかりませんでした。"
 
 #: config.py:77
 msgid "Default Unpack Directory:"
@@ -423,10 +346,11 @@ msgstr "確認中"
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: dialogs.py:48 dialogs.py:69
+#: dialogs.py:38 dialogs.py:64
 #, python-brace-format
-msgid "{0} {1} {2} ({3} issues)..."
-msgstr "{0} {1} {2} ({3} 冊)..."
+msgid "{0} {1} {2} ({3} issue)..."
+msgid_plural "{0} {1} {2} ({3} issues)..."
+msgstr[0] "{0} {1} {2} ({3} 件の問題)..."
 
 #: dialogs.py:71
 #, python-brace-format
@@ -479,20 +403,10 @@ msgstr "認識できない Kindle/MOBI ファイル形式です！"
 msgid "Problem locating unpacked pdf."
 msgstr "解凍された PDF ファイルの場所が見つかりません。"
 
-#: mobi_stuff.py:135
+#: mobi_stuff.py:122 mobi_stuff.py:134 mobi_stuff.py:143
 #, python-brace-format
-msgid "Problem locating unpacked pdf: {0}"
-msgstr "解凍された PDF ファイルの場所が見つかりません: {0}"
-
-#: mobi_stuff.py:147
-#, python-brace-format
-msgid "Problem locating unpacked epub: {0}"
-msgstr "解凍された epub ファイルの場所が見つかりません: {0}"
-
-#: mobi_stuff.py:156
-#, python-brace-format
-msgid "Problem locating unpacked zip: {0}"
-msgstr "解凍された zip ファイルの場所が見つかりません: {0}"
+msgid "Problem locating the unpacked {0} file: {1}"
+msgstr "解凍した {0} ファイルの場所が見つかりません: {1}"
 
 #: mobi_stuff.py:167
 msgid "Could not create MOBI portion of the split"
@@ -502,68 +416,47 @@ msgstr "分割で MOBI 形式のファイルを作成できませんでした"
 msgid "Could not create KF8 portion of the split"
 msgstr "分割で KF8 形式のファイルを作成できませんでした"
 
-#: utilities.py:276
+#: utilities.py:262
 #, python-brace-format
-msgid "<h2>Successes - {0}</h2>\n"
-msgstr "<h2>成功 - {0}</h2>\n"
+msgid "<h2>Success - {0}</h2>\n"
+msgid_plural "<h2>Successes - {0}</h2>\n"
+msgstr[0] "<h2>成功 - {0}</h2>\n"
 
-#: utilities.py:278
+#: utilities.py:267
 #, python-brace-format
-msgid "<h4>1 {0} format successfully extracted and added to book.</h4>\n"
-msgstr "<h4>1 冊の {0} 形式が正常に抽出され、書籍に追加されました。</h4>\n"
+msgid "<h4>{0} {1} format successfully extracted and added to a book.</h4>\n"
+msgid_plural "<h4>{0} {1} formats successfully extracted and added to books.</h4>\n"
+msgstr[0] "<h4>{0} 件の書籍に {1} 形式を正常に抽出して追加しました。</h4>\n"
 
 #: utilities.py:280
 #, python-brace-format
-msgid "<h4>{0} {1} formats successfully extracted and added to books.</h4>\n"
-msgstr "<h4>{0} 冊の {1} 形式が正常に抽出され、書籍に追加されました。</h4>\n"
+msgid "<h2>Issue - {0}</h2>\n"
+msgid_plural "<h2>Issues - {0}</h2>\n"
+msgstr[0] "<h2>問題 - {0}</h2>\n"
 
-#: utilities.py:288
+#: utilities.py:300
 #, python-brace-format
-msgid "<h2>Issues - {0}</h2>\n"
-msgstr "<h2>問題 - {0}</h2>\n"
+msgid "<h4>{0} book had an encrypted {1} format.</h4>\n"
+msgid_plural "<h4>{0} books had an encrypted {1} format.</h4>\n"
+msgstr[0] "<h4>{0} 冊の書籍で {1} 形式の暗号化が検出されました。</h4>\n"
 
-#: utilities.py:319
+#: utilities.py:313
 #, python-brace-format
-msgid "<h4>1 book had encrypted {0} format.</h4>\n"
-msgstr "<h4>1 冊の書籍が 暗号化された {0} 形式でした。</h4>\n"
+msgid "<h4>{0} book's {1} format contained no {2}.</h4>\n"
+msgid_plural "<h4>{0} books' {1} format contained no {2}.</h4>\n"
+msgstr[0] "<h4>{0} 冊の書籍の {1} 形式には、{2} が含まれていませんでした。</h4>\n"
 
-#: utilities.py:321
+#: utilities.py:326
 #, python-brace-format
-msgid "<h4>{0} books had encrypted {1} formats.</h4>\n"
-msgstr "<h4>{0} 冊の書籍が暗号化された {1} 形式でした。</h4>\n"
+msgid "<h4>{0} book already had the {1} format; it will not be overwritten.</h4>\n"
+msgid_plural "<h4>{0} books already had the {1} format; they will not be overwritten.</h4>\n"
+msgstr[0] "<h4>{0} 冊の書籍に {1} 形式がすでに存在するため、上書きしません。</h4>\n"
 
-#: utilities.py:332
+#: utilities.py:339
 #, python-brace-format
-msgid "<h4>1 book's {0} format contained no {1}.</h4>\n"
-msgstr "<h4>1 冊の書籍の {0} 形式には {1} が含まれていませんでした。</h4>\n"
-
-#: utilities.py:334
-#, python-brace-format
-msgid "<h4>{0} books' {1} formats contained no {2}.</h4>\n"
-msgstr "<h4>{0} 冊の {1} 形式には {2} が含まれていませんでした。</h4>\n"
-
-#: utilities.py:345
-#, python-brace-format
-msgid "<h4>1 book already had {0} format -- will not overwrite.</h4>\n"
-msgstr ""
-"<h4>1 冊の書籍が既に {0} 形式になっています。上書きはされません。</h4>\n"
-
-#: utilities.py:347
-#, python-brace-format
-msgid "<h4>{0} books already had {1} formats -- will not overwrite.</h4>\n"
-msgstr ""
-"<h4>{0} 冊の書籍が既に {1} 形式になっています。上書きはされません。</h4>\n"
-
-#: utilities.py:358
-#, python-brace-format
-msgid "<h4>1 book had unknown errors processing the {0} format.</h4>\n"
-msgstr "<h4>1 冊の書籍で {0} 形式の処理中に不明なエラーが発生しました。</h4>\n"
-
-#: utilities.py:360
-#, python-brace-format
-msgid "<h4>{0} books had unknown errors processing the {1} formats.</h4>\n"
-msgstr ""
-"<h4>{0} 冊の書籍で {1} 形式の処理中に不明なエラーが発生しました。</h4>\n"
+msgid "<h4>{0} book had an unknown error while processing the {1} format.</h4>\n"
+msgid_plural "<h4>{0} books had unknown errors while processing the {1} format.</h4>\n"
+msgstr[0] "<h4>{0} 冊の書籍で {1} 形式の処理中に不明なエラーが発生しました。</h4>\n"
 
 #: utilities.py:369
 #, python-brace-format
